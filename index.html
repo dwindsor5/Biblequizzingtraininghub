@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1456c9">
+<meta name="format-detection" content="telephone=no">
+<title>The Bible Quizzing Training Hub</title>
+<style>
+:root{--bg:#1f6fe5;--card:#0a2f7a;--ink:#fff;--mute:#d3e4ff;--pri:#2f86ff;--pri2:#ffd23f;--ok:#17b26a;--bad:#e5484d;--line:rgba(255,255,255,.28);--chip:rgba(255,255,255,.14);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:linear-gradient(135deg,var(--pri),#8a5cf6);color:#fff;padding:26px 64px 54px;text-align:center}
+header h1{margin:0;font-size:clamp(1.4rem,4.5vw,2.2rem);letter-spacing:-.5px}
+header p{margin:6px 0 0;opacity:.9}
+#burger{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:12px;z-index:30;width:44px;height:44px;border-radius:12px;border:0;background:#0a2f7a;border:2px solid rgba(255,255,255,.6);box-shadow:0 2px 10px rgba(0,20,80,.4);cursor:pointer;display:grid;place-content:center;gap:5px}
+#burger i{display:block;width:22px;height:3px;border-radius:2px;background:#fff}
+#scrim{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,8,30,.5);z-index:40;opacity:0;pointer-events:none;transition:.2s}
+#side{position:fixed;top:0;bottom:0;left:0;width:260px;max-width:82vw;background:var(--card);z-index:50;transform:translateX(-102%);transition:.22s;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px 18px;box-shadow:4px 0 24px rgba(0,0,0,.25);overflow:auto}
+body.open #side{transform:none}body.open #scrim{opacity:1;pointer-events:auto}
+#side h3{margin:4px 0 10px;font-size:1rem}
+#side a{display:block;padding:12px 14px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:700;margin-bottom:4px}
+#side a.on{background:var(--pri);color:#fff}
+#side .soon{padding:12px 14px;color:var(--mute);font-weight:600;opacity:.7}
+main{max-width:760px;margin:-34px auto 40px;padding:0 14px;display:grid;gap:16px}
+.view{display:none;gap:16px}.view.on{display:grid}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(60,40,160,.08)}
+h2{margin:0 0 10px;font-size:1.1rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-weight:600;cursor:pointer}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.chip.dim{opacity:.45}
+.hint{color:var(--mute);font-size:.9rem;margin:10px 0 0}
+.btn{border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer;background:var(--pri);color:#fff}
+.btn.alt{background:var(--chip);color:var(--ink)}.btn.ok{background:var(--ok)}.btn.bad{background:var(--bad)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.badge{display:inline-block;background:var(--pri2);color:#2a1a00;font-weight:800;border-radius:8px;padding:2px 10px;font-size:.85rem}
+.qtext{font-size:1.25rem;font-weight:600;margin:12px 0}
+.ans{background:var(--chip);border-left:5px solid var(--ok);border-radius:10px;padding:12px;margin:12px 0}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:1.4rem;min-width:3ch}.timer.low{color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.stats b{display:block;font-size:1.6rem}.stats span{color:var(--mute);font-size:.85rem}
+input[type=text],select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;margin:4px 0 10px}
+textarea{min-height:110px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:16px}
+textarea.big{min-height:280px}
+.hidden{display:none}
+.book{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.book label{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--mute)}
+input[type=number]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;width:90px}
+#bWords{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}#bWords .chip{padding:5px 10px;font-weight:500}
+#sitChecks .chip{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+html{background:#1456c9;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:linear-gradient(180deg,#2f80ff 0,#1456c9 100%);color:#fff;min-height:100vh}
+header{background:linear-gradient(135deg,#0a2f7a,#1e6bff)}
+.card{background:rgba(7,40,120,.62);border-color:rgba(255,255,255,.25);box-shadow:0 6px 22px rgba(0,20,80,.3)}
+#side{background:#0a2f7a}
+#side a.on{background:#ffd23f;color:#0a2f7a}
+.chip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff}
+.chip.on{background:#ffd23f;border-color:#ffd23f;color:#0a2f7a}
+.btn{background:#2f86ff;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.7) inset}
+.btn.alt{background:rgba(255,255,255,.18);color:#fff;box-shadow:none}
+.btn.ok{background:#17b26a;box-shadow:none}.btn.bad{background:#e5484d;box-shadow:none}
+.ans{background:rgba(255,255,255,.14);border-left-color:#7dffb3}
+input[type=text],input[type=number],select,textarea{background:rgba(0,20,80,.45);color:#fff;border-color:rgba(255,255,255,.35)}
+option{color:#111;background:#fff}
+::placeholder{color:#cfe2ff}
+.book{border-color:rgba(255,255,255,.25)}
+.timer.low{color:#ffd23f}
+input[type=checkbox]{accent-color:#ffd23f}
+#barWrap{height:8px;background:rgba(255,255,255,.2);border-radius:6px;margin-top:12px;overflow:hidden}
+#bar{height:100%;width:100%;background:#7dffb3;transition:width 1s linear,background .3s}#bar.low{background:#ffd23f}
+#fx{position:fixed;left:0;right:0;top:0;bottom:0;pointer-events:none;overflow:hidden;z-index:90}
+.fxp{position:absolute;top:-8vh;display:block;animation-name:fxfall;animation-timing-function:linear;animation-fill-mode:forwards;will-change:transform}
+.fxp.conf{border-radius:2px}
+.fxp.olive{border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4d65a,#74882a 55%,#4a5a14)}
+.fxp.olive::after{content:"";position:absolute;left:36%;top:10%;width:28%;height:22%;background:#d1332b;border-radius:50%}
+@keyframes fxfall{0%{transform:translate3d(0,0,0) rotate(0deg)}100%{transform:translate3d(var(--dx,0px),115vh,0) rotate(var(--rot,0deg))}}
+.sw{display:inline-block;height:1.04em;width:.68em;vertical-align:-.2em;fill:currentColor;margin:0 .03em 0 .01em}
+.sw2{position:relative;display:inline-block;width:52px;height:30px;flex:none}
+.sw2 input{opacity:0;width:100%;height:100%;margin:0;position:absolute;left:0;top:0;cursor:pointer;z-index:2}
+.sw2 span{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.3);border-radius:30px;transition:background .2s}
+.sw2 span:before{content:"";position:absolute;height:24px;width:24px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s}
+.sw2 input:checked+span{background:#17b26a}
+.sw2 input:checked+span:before{transform:translateX(22px)}
+.sw2 input:disabled{cursor:not-allowed}
+input,select,textarea{font-size:16px}
+.jwords{min-height:84px;font-size:1.7rem;font-weight:700;line-height:1.4;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:6px 0 14px}
+.jw{opacity:0;animation:jin .25s forwards}
+@keyframes jin{to{opacity:1}}
+.btn.jbig{width:100%;min-height:76px;font-size:1.6rem;background:#ffd23f;color:#0a2f7a;box-shadow:none;letter-spacing:1px}
+.btn.jbig:disabled{opacity:.45}
+.mk{color:#ffd23f;font-weight:900;padding:0 6px}
+button,a,input,select,textarea{touch-action:manipulation}
+.btn{min-height:44px}.chip{min-height:40px}
+input[type=checkbox]{width:22px;height:22px;flex:none}
+.qtext,.ans,.hint{overflow-wrap:anywhere}
+#side{visibility:hidden;transition:transform .22s,visibility 0s .22s}
+body.open #side{visibility:visible;transition-delay:0s}
+#errBar{position:fixed;left:0;right:0;top:0;z-index:100;background:#b3261e;color:#fff;padding:10px 14px;font-size:.9rem}
+label{display:block}
+</style>
+</head>
+<body>
+<noscript><div style="padding:16px;background:#fff;color:#000">This site needs JavaScript. Please open it in a normal web browser (Chrome, Safari, Edge or Firefox).</div></noscript>
+<div id="errBar" style="display:none"></div>
+<div id="fx" aria-hidden="true"></div>
+<button id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
+<div id="scrim"></div>
+<nav id="side">
+  <h3><a href="#home" data-v="home">Training Hub</a></h3>
+  <a href="#practice" data-v="practice">Practice Questions</a>
+  <a href="#jump" data-v="jump">Jump Mark Practice</a>
+  <a href="#keywords" data-v="keywords">Keyword Practice</a>
+  <a href="#bank" data-v="bank">My Question Bank</a>
+  <a href="#source" data-v="source">Source Text</a>
+</nav>
+<header>
+  <h1><a href="#home" data-v="home" aria-label="The Bible Quizzing Training Hub" style="color:inherit;text-decoration:none">The Bible Quizzing <svg class="sw" viewBox="0 0 20 32" aria-hidden="true" focusable="false"><circle cx="10" cy="2.4" r="2.4"/><rect x="8.5" y="4" width="3" height="3.6"/><rect x=".6" y="7" width="18.8" height="4.2" rx="2"/><path d="M6.6 11H13.4V25.5L10 31.6L6.6 25.5Z"/><path d="M10 12.6V25.8" stroke="#1e6bff" stroke-width=".9" fill="none" opacity=".6"/></svg>raining Hub</a></h1>
+  <p>Practice like it’s the real quiz. Jump in, answer fast, stay in context.</p>
+</header>
+<main>
+
+<div class="view" id="v-home">
+  <section class="card">
+    <h2>Welcome to the Bible Quizzing Training Hub</h2>
+    <p style="margin-top:0">Practice for Bible quizzing anywhere, using the Bible text your team is studying. Every question is built from your own source text, so it always matches what you are learning.</p>
+    <p class="hint" id="homeSrc"></p>
+    <button class="btn alt hidden" id="teamLoad">Load the team source text</button>
+  </section>
+  <section class="card">
+    <h2>What you can do here</h2>
+    <p style="margin-top:0"><b>Practice Questions</b><br>Random questions in every quiz type: Interrogative, Multiple Answer, the Reference types, Quote, Finish and Situation. Pick the types you want to work on, race a 30-second timer, and get confetti for right answers and olives for misses.</p>
+    <p><b>Jump Mark Practice</b><br>Train to jump at exactly the right word. The verse is read one word at a time, you press JUMP at the earliest safe spot, then finish the verse. Only jump marks for the chapters in your source text show up.</p>
+    <p><b>Keyword Practice</b><br>Coming soon.</p>
+    <p><b>My Question Bank</b><br>Add your own questions, and keep a backup of them.</p>
+    <p style="margin-bottom:0"><b>Source Text</b><br>For administrators only. Add the Bible text your team is using, like John, and give it a label. The site reads the books, chapters and verses by itself and remembers them. Change it here whenever the quiz year changes.</p>
+  </section>
+  <section class="card">
+    <h2>Getting started</h2>
+    <p style="margin-top:0">1. Open the menu ☰ in the top left.<br>2. Administrators: go to <b>Source Text</b>, sign in, and save the Bible text.<br>3. Everyone: open <b>Practice Questions</b> or <b>Jump Mark Practice</b> and start training.</p>
+  </section>
+</div>
+
+<div class="view" id="v-practice">
+  <section class="card">
+    <h2>1. Pick your question types</h2>
+    <div class="chips" id="chips"></div>
+    <p class="hint" id="filterHint"></p>
+    <div class="row" style="margin-top:12px"><button class="btn alt" id="clearBtn">Clear filters</button></div>
+    <h2 style="margin:16px 0 8px">Practice mode</h2>
+    <div class="chips"><button class="chip on" id="modeFree">Free practice</button><button class="chip" id="modeQuiz">20-question quiz</button></div>
+    <p class="hint" id="modeHint"></p>
+    <h2 style="margin:16px 0 8px">Listening</h2>
+    <label class="row"><span class="sw2"><input type="checkbox" id="spkPractice"><span></span></span> Read questions aloud instead of showing the words</label>
+    <div class="row" style="margin-top:8px"><label>Speaking speed <select id="spkSpeed" style="width:auto;display:inline-block"><option value="0.85">Slow</option><option value="1" selected>Normal</option><option value="1.25">Fast</option></select></label></div>
+    <div class="row" style="margin-top:8px"><label>Voice <select id="spkVoice" style="width:auto;max-width:100%;display:inline-block"></select></label><button class="btn alt" id="spkTest">Hear the voice</button></div>
+    <p class="hint" id="spkHint"></p>
+    <p class="hint" id="srcInfo"></p>
+    <p class="hint" id="poolInfo"></p>
+  </section>
+  <section class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0">2. Quiz yourself</h2>
+      <div class="row"><span class="timer" id="timer">30</span><button class="btn alt" id="timerBtn">Pause</button></div>
+    </div>
+    <div id="barWrap"><div id="bar"></div></div>
+    <div id="qArea"><p class="hint">Press “New question” to begin. The 30-second timer starts right away. To answer out loud, tap the microphone key on your keyboard.</p></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="newBtn">New question</button>
+      <button class="btn alt hidden" id="showBtn">Show answer</button>
+    </div>
+    <div class="row hidden" id="grade" style="margin-top:12px">
+      <button class="btn ok" id="rightBtn">✓ I got it</button>
+      <button class="btn bad" id="wrongBtn">✗ Missed it</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Your session</h2>
+    <div class="stats">
+      <div><b id="sAsked">0</b><span>Asked</span></div>
+      <div><b id="sRight">0</b><span>Correct</span></div>
+      <div><b id="sPct">0%</b><span>Accuracy</span></div>
+    </div>
+    <div class="row" style="margin-top:12px"><button class="btn alt" id="resetBtn">Reset session</button></div>
+  </section>
+  <section class="card" id="chkCard">
+    <h2>Check a question’s type</h2>
+    <p class="hint" style="margin-top:0">Paste a written question and its answer. The site works out which of the 13 question types it is, using the rulebook’s rules and your source text, and tells you if anything breaks a rule.</p>
+    <label>Question text<textarea id="chkQ" style="min-height:70px;font-family:inherit" placeholder="e.g. According to John, chapter 2, verse 1, a wedding took place at Cana in what?"></textarea></label>
+    <label>Answer<input type="text" id="chkA" placeholder="e.g. Galilee"></label>
+    <div class="row"><button class="btn" id="chkBtn">Detect the type</button></div>
+    <div class="ans hidden" id="chkOut" style="margin-top:12px"></div>
+  </section>
+</div>
+
+<div class="view" id="v-source">
+  <section class="card" id="adminLogin">
+    <h2>Administrator sign in</h2>
+    <p class="hint" style="margin-top:0">The Source Text section is only for administrators. Sign in to add or change the Bible text the site uses. Everyone else can still practice with it.</p>
+    <label>Password <input type="password" id="admPw" autocomplete="current-password" autocapitalize="off"></label>
+    <label class="row" style="margin-bottom:10px"><input type="checkbox" id="admKeep"> Keep me signed in on this device</label>
+    <div class="row"><button class="btn" id="admIn">Sign in</button></div>
+    <p class="hint" id="admMsg"></p>
+  </section>
+  <section class="card hidden" id="srcCard">
+    <div class="row" style="justify-content:space-between;margin-bottom:6px"><b>Signed in as administrator</b><button class="btn alt" id="admOut">Sign out</button></div>
+    <h2>Source text</h2>
+    <p class="hint" style="margin-top:0">Add one block of Bible text and give it a label (for example <b>John</b>). The site reads the books, chapters and verses by itself, and remembers your text.</p>
+    <label>Label
+      <input type="text" id="srcLabel" placeholder="e.g. John" autocomplete="off" maxlength="60">
+    </label>
+    <label>Bible text (NIV 2011)
+      <textarea class="big" id="srcText" spellcheck="false" placeholder="Paste the whole book here…"></textarea>
+    </label>
+    <div class="row">
+      <button class="btn" id="srcSave">Save source text</button>
+      <button class="btn alt" id="srcClear">Remove source text</button>
+    </div>
+    <p class="hint" id="srcMsg"></p>
+    <p class="hint" id="srcSaved"></p>
+    <div class="ans" style="margin-top:10px">
+      <b>Where your text is saved</b>
+      <div id="layerList" class="hint" style="margin:6px 0 0"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn alt hidden" id="srcAllow">Allow saving to my account</button>
+        <button class="btn alt" id="srcCheck">Check saved copies</button>
+        <button class="btn alt" id="srcDownload">Download a backup</button>
+      </div>
+    </div>
+    <div id="srcReport"></div>
+    <label style="display:block;margin-top:14px">This season’s material is
+      <select id="styleSel" style="width:auto;display:inline-block"><option value="narrative">Narrative (SIT questions on)</option><option value="epistle">Epistle (SIT questions off)</option></select>
+    </label>
+    <div class="ans" style="margin-top:10px">
+      <b>Share the site with everyone</b>
+      <p class="hint" style="margin:6px 0 10px">Makes a copy of the whole site with this source text built in. Put that file on a free web host (like Netlify) and anyone with the link can practice, with no Claude account. When you change the text, download a new file and upload it to the same place: everyone gets the update. People can practice with the text but they cannot see or change it on the site.</p>
+      <button class="btn" id="srcSite">Download site file with this text built in</button>
+    </div>
+    <p class="hint">It understands the usual ways Bibles are copied: book titles, “Chapter 5” or “John 5” headings, verse numbers inside the text (including tiny raised numbers), and “5:1” style references. Section titles and footnote marks are skipped. If something is off, fix it in the box and save again.</p>
+  </section>
+</div>
+
+<div class="view" id="v-jump">
+  <section class="card">
+    <h2>Jump Mark Practice</h2>
+    <p class="hint" style="margin-top:0">A jump mark is the first spot where you can safely jump on a Finish the Verse question. Press START and the verse is read one word at a time. Press JUMP (or the space bar) at the earliest safe word, then finish the verse.</p>
+    <p class="hint" id="jmInfo"></p>
+    <p class="hint" id="jmCheck"></p>
+    <label class="row" style="margin:6px 0 12px"><span class="sw2"><input type="checkbox" id="spkJump"><span></span></span> Speak the words instead of showing them</label>
+    <p class="hint" id="spkHint2" style="margin-top:0"></p>
+    <div class="row" style="margin:0 0 12px"><label>Voice <select id="spkVoice2" style="width:auto;max-width:100%;display:inline-block"></select></label><button class="btn alt" id="spkTest2">Hear the voice</button></div>
+    <div class="row">
+      <label>Reading speed <select id="jmSpeed" style="width:auto;display:inline-block"><option value="2">Slow</option><option value="3" selected>Normal</option><option value="4">Fast</option></select></label>
+      <label class="row"><input type="checkbox" id="jmShared"> Include repeated starts (‖)</label>
+    </div>
+  </section>
+  <section class="card">
+    <div class="row" style="justify-content:space-between"><h2 style="margin:0">Practice</h2><span class="hint" id="jmStatus" style="margin:0"></span></div>
+    <p class="hint" id="jmHelp">Press START when you are ready.</p>
+    <div class="jwords" id="jmWords"></div>
+    <button class="btn jbig" id="jmBig">START</button>
+    <div class="hidden" id="jmFinish" style="margin-top:12px">
+      <p class="hint" id="jmFinNote" style="margin:0 0 8px"></p>
+      <div class="row" style="justify-content:space-between"><b>Finish the verse</b><span class="timer" id="jmTimer">30</span></div>
+      <textarea id="jmAns" placeholder="Type it, or tap the microphone key on your keyboard to say it… (Ctrl+Enter submits)" style="min-height:90px;font-family:inherit"></textarea>
+      <div class="row"><button class="btn" id="jmSubmit">Submit</button><button class="btn alt" id="jmSkip">Skip</button></div>
+    </div>
+    <div class="ans hidden" id="jmResult" style="margin-top:12px"></div>
+  </section>
+  <section class="card">
+    <h2>Your jump mark stats</h2>
+    <p id="jmStats" style="margin:0 0 10px"></p>
+    <button class="btn alt" id="jmReset">Reset stats</button>
+  </section>
+  <section class="card">
+    <h2>Jump mark list</h2>
+    <p class="hint" style="margin-top:0">The slash shows where the jump mark ends. Only verses in your source text are listed.</p>
+    <input type="text" id="jmFilter" placeholder="Search by words or reference (e.g. 3:16)" autocomplete="off">
+    <div id="jmList"></div>
+  </section>
+</div>
+
+<div class="view" id="v-keywords">
+  <section class="card">
+    <h2>Keyword Practice</h2>
+    <p style="margin:0">Coming soon. This section is still being built.</p>
+  </section>
+</div>
+
+<div class="view" id="v-bank">
+  <section class="card">
+    <h2>My Question Bank</h2>
+    <p class="hint" style="margin-top:0">The site builds questions of every type from your source text automatically. Add your own here if you want extra ones, word-for-word from the NIV. References like “John 5:3” or “John ch 5 v 3” both work.</p>
+    <label>Type <select id="fType"></select></label>
+    <label>Reference (e.g. John 3:16)<input type="text" id="fRef"></label>
+    <label>Question text (full wording, like “According to John, chapter 2, verse 1, …”)
+      <textarea id="fQ" style="min-height:70px;font-family:inherit;font-size:1rem"></textarea></label>
+    <label>Answer
+      <textarea id="fA" style="min-height:70px;font-family:inherit;font-size:1rem"></textarea></label>
+    <div class="row"><button class="btn" id="addBtn">Add question</button><span class="hint" id="addMsg" style="margin:0"></span></div>
+  </section>
+  <section class="card">
+    <h2>Import / backup</h2>
+    <textarea id="json" spellcheck="false"></textarea>
+    <div class="row"><button class="btn alt" id="exportBtn">Show my questions</button><button class="btn alt" id="importBtn">Import from box</button><button class="btn alt" id="wipeBtn">Delete my questions</button></div>
+    <p class="hint" id="jsonMsg"></p>
+  </section>
+  <section class="card"><h2>My saved questions</h2><div id="qList"></div>
+  </section>
+</div>
+
+</main>
+<script type="application/json" id="bakedSrc">null</script>
+<script>
+(function(){
+  var VIEWS=["home","practice","jump","keywords","bank","source"];
+  function el(id){return document.getElementById(id)}
+  function bar(msg){var b=el("errBar");if(b){b.textContent="Something went wrong ("+msg+"). Try reloading the page. If it keeps happening, tell the person who built the site what this message says.";b.style.display="block"}}
+  window.addEventListener("error",function(e){var m=e&&e.message?e.message:"script error";if(/ResizeObserver/i.test(m))return;bar(m)});
+  function openMenu(v){
+    document.body.classList.toggle("open",v);
+    var b=el("burger");if(b)b.setAttribute("aria-expanded",document.body.classList.contains("open")?"true":"false");
+  }
+  var current=null;
+  function route(forced,again){
+    var h=forced||(location.hash||"#home").slice(1);
+    var v=VIEWS.indexOf(h)>=0?h:"home";
+    if(v===current&&!again){openMenu(false);return}
+    current=v;
+    for(var i=0;i<VIEWS.length;i++){
+      var s=el("v-"+VIEWS[i]);if(s)s.classList[VIEWS[i]===v?"add":"remove"]("on");
+    }
+    var links=document.querySelectorAll("#side a");
+    for(var j=0;j<links.length;j++)links[j].classList[links[j].getAttribute("data-v")===v?"add":"remove"]("on");
+    openMenu(false);
+    try{window.scrollTo(0,0)}catch(e){}
+    if(window.BQ&&typeof window.BQ.onView==="function"){try{window.BQ.onView(v)}catch(e){bar(e.message)}}
+  }
+  window.BQ={route:route,onView:null,openMenu:openMenu};
+  el("burger").onclick=function(){openMenu(!document.body.classList.contains("open"))};
+  el("scrim").onclick=function(){openMenu(false)};
+  var nl=document.querySelectorAll("a[data-v]");for(var k=0;k<nl.length;k++)nl[k].addEventListener("click",function(e){var v=this.getAttribute("data-v");e.preventDefault();try{if(location.hash!=="#"+v)location.hash=v}catch(err){}route(v)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")openMenu(false)});
+  window.addEventListener("hashchange",function(){route()});
+  route(null,true);
+})();
+
+</script>
+<script>
+const $=id=>document.getElementById(id);
+const TYPES=[["INT","Interrogative"],["MA","Multiple Answer"],["CR","Chapter Ref"],["CVR","Chapter Verse Ref"],["CRMA","Chapter Ref MA"],["CVRMA","Chapter Verse Ref MA"],["Q","Quote"],["Q2V","Quote 2 Verses"],["FTV","Finish the Verse"],["FT","Finish This"],["F2V","Finish 2 Verses"],["FTN","Finish This & Next"],["SIT","Situation"]];
+const WP=["Q","Q2V","FTV","FT","F2V","FTN"];
+const GEN=WP.concat(["INT","MA","CR","CVR","CRMA","CVRMA","SIT"]);
+
+/* ---------- saving: three places, so nothing gets lost ---------- */
+const store={mem:{},
+  get(k,d){try{const v=window.localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return k in this.mem?this.mem[k]:d},
+  set(k,v){this.mem[k]=v;try{window.localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+// a second copy in IndexedDB, in case the browser clears its normal storage
+const idb={
+  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("bqhub",1);r.onupgradeneeded=()=>{try{r.result.createObjectStore("kv")}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  async get(k){try{const d=await this.open();return await new Promise((res,rej)=>{const q=d.transaction("kv","readonly").objectStore("kv").get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}catch(e){return undefined}},
+  async set(k,v){try{const d=await this.open();return await new Promise((res,rej)=>{const t=d.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>res(true);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})}catch(e){return false}}
+};
+function askPersist(){try{if(navigator.storage&&typeof navigator.storage.persist==="function")navigator.storage.persist().catch(function(){})}catch(e){}}
+askPersist();
+let DB=null,UID=null,DB_OK=false;
+const dbRef=k=>DB.doc("data/users/"+UID+"/"+k);
+async function dbInit(){
+  try{
+    if(!window.claude||typeof window.claude.use!=="function")return;
+    const d=await window.claude.use("db"),u=await window.claude.use("user");
+    if(!d||!u)return;
+    const id=await u.id();
+    if(id){DB=d;UID=id}
+  }catch(e){}
+}
+async function dbPut(k,obj){try{if(!DB||!DB_OK)return false;await dbRef(k).set(obj);return true}catch(e){return false}}
+async function dbGet(k){try{if(!DB||!DB_OK)return null;const s=await dbRef(k).get();return s.exists?s.data():null}catch(e){return null}}
+const CHUNK=80000;
+const isSrc=x=>!!(x&&typeof x==="object"&&x.raw&&x.label&&!x.removed);
+const stampOf=x=>(x&&x.saved)||0;
+async function chunkSave(put,prefix,rec){
+  if(!DB||!DB_OK)return false;
+  if(!isSrc(rec))return put(prefix+"meta",{fmt:2,n:0,saved:stampOf(rec)||Date.now(),removed:true});
+  const js=JSON.stringify(rec),n=Math.max(1,Math.ceil(js.length/CHUNK));
+  for(let i=0;i<n;i++){if(!(await put(prefix+i,{t:js.slice(i*CHUNK,(i+1)*CHUNK)})))return false}
+  return put(prefix+"meta",{fmt:2,n,saved:rec.saved,removed:false});
+}
+async function chunkLoad(get,prefix){
+  const m=await get(prefix+"meta");if(!m)return null;
+  if(m.removed||!m.n)return{removed:true,label:"",raw:"",saved:m.saved||0};
+  let js="";
+  for(let i=0;i<m.n;i++){const p=await get(prefix+i);if(!p)return null;js+=p.t}
+  if(m.fmt===2){try{return JSON.parse(js)}catch(e){return null}}
+  return{label:m.label||"",raw:js,saved:m.saved||0};
+}
+// the account copy (private to the viewer) and the team copy (everyone can read it, only the owner can write it)
+const dbSaveSrc=rec=>chunkSave(dbPut,"bq_src_",rec);
+const dbLoadSrc=()=>chunkLoad(dbGet,"bq_src_");
+async function teamPut(k,obj){try{if(!DB||!DB_OK)return false;await DB.doc("data/team/src/"+k).set(obj);return true}catch(e){return false}}
+async function teamGet(k){try{if(!DB||!DB_OK)return null;const d=await DB.doc("data/team/src/"+k).get();return d.exists?d.data():null}catch(e){return null}}
+const teamSave=rec=>chunkSave(teamPut,"",rec);
+const teamLoad=()=>chunkLoad(teamGet,"");
+const READER_VER=8;
+
+/* ---------- saved data ---------- */
+let SRC=null,SRC_TS=0,srcDirty=false;
+(function(){
+  const loc=store.get("bq3_src",undefined);
+  if(loc===undefined){
+    const ob=store.get("bqhub_books",null);   // the earlier multi-book version
+    if(Array.isArray(ob)&&ob.length&&ob[0]&&ob[0].raw){const b=ob.find(x=>x&&x.active&&x.raw)||ob[0];SRC={label:b.name||"Source",raw:b.raw,saved:Date.now()};SRC_TS=SRC.saved}
+  }else if(isSrc(loc)){SRC=loc;SRC_TS=stampOf(loc)||1}
+  else{SRC=null;SRC_TS=stampOf(loc)||1}
+})();
+// text built into the page itself (set by the site builder): it can never disappear
+let BAKED=null;
+try{const bt=document.getElementById("bakedSrc").textContent.trim();if(bt&&bt!=="null")BAKED=JSON.parse(bt)}catch(e){}
+if(isSrc(BAKED)&&(!SRC||stampOf(BAKED)>SRC_TS)){SRC=Object.assign({},BAKED);SRC_TS=stampOf(BAKED)||1}
+let PREFS=store.get("bq3_prefs",null);
+if(!PREFS){
+  PREFS={custom:[],style:"narrative",saved:0};
+  const oldQ=store.get("bqhub_custom",null);if(Array.isArray(oldQ))PREFS.custom=oldQ;
+  const oldS=store.get("bqhub_style",null);if(oldS)PREFS.style=oldS;
+}
+let custom=Array.isArray(PREFS.custom)?PREFS.custom.filter(q=>q&&q.t&&q.q&&q.a):[];
+let style=PREFS.style==="epistle"?"epistle":"narrative";
+let recent=[];
+function savePrefs(){
+  PREFS={custom,style,saved:Date.now()};
+  const ok=store.set("bq3_prefs",PREFS);
+  idb.set("bq3_prefs",PREFS);
+  dbPut("bq_prefs",{custom:JSON.stringify(custom),style,saved:PREFS.saved});
+  return ok;
+}
+
+/* ---------- the Bible reader ---------- */
+const BK=[["Genesis",50,"gen"],["Exodus",40,"exod exo"],["Leviticus",27,"lev"],["Numbers",36,"num"],["Deuteronomy",34,"deut"],["Joshua",24,"josh jos"],["Judges",21,"judg jdg"],["Ruth",4,"rut"],["1 Samuel",31,"1sam 1sa 1sm"],["2 Samuel",24,"2sam 2sa 2sm"],["1 Kings",22,"1kgs 1ki 1kin"],["2 Kings",25,"2kgs 2ki 2kin"],["1 Chronicles",29,"1chron 1chr 1ch"],["2 Chronicles",36,"2chron 2chr 2ch"],["Ezra",10,"ezr"],["Nehemiah",13,"neh"],["Esther",10,"esth est"],["Job",42,""],["Psalms",150,"psalm psa pss"],["Proverbs",31,"prov prv"],["Ecclesiastes",12,"eccl ecc"],["Song of Solomon",8,"songofsongs songsongs songsolomon songofsol sos canticles"],["Isaiah",66,"isa"],["Jeremiah",52,"jer"],["Lamentations",5,"lam"],["Ezekiel",48,"ezek eze"],["Daniel",12,"dan"],["Hosea",14,"hos"],["Joel",3,""],["Amos",9,""],["Obadiah",1,"obad"],["Jonah",4,"jon"],["Micah",7,"mic"],["Nahum",3,"nah"],["Habakkuk",3,"hab"],["Zephaniah",3,"zeph zep"],["Haggai",2,"hag"],["Zechariah",14,"zech zec"],["Malachi",4,"mal"],["Matthew",28,"matt mat"],["Mark",16,"mrk"],["Luke",24,"luk"],["John",21,"jhn"],["Acts",28,"actsapostles"],["Romans",16,"rom"],["1 Corinthians",16,"1cor 1co"],["2 Corinthians",13,"2cor 2co"],["Galatians",6,"gal"],["Ephesians",6,"eph ephes"],["Philippians",4,"phil php"],["Colossians",4,"col"],["1 Thessalonians",5,"1thess 1thes 1th"],["2 Thessalonians",3,"2thess 2thes 2th"],["1 Timothy",6,"1tim 1ti"],["2 Timothy",4,"2tim 2ti"],["Titus",3,"tit"],["Philemon",1,"philem phm"],["Hebrews",13,"heb"],["James",5,"jas"],["1 Peter",5,"1pet 1pe 1pt"],["2 Peter",3,"2pet 2pe 2pt"],["1 John",5,"1jn 1jo 1jhn"],["2 John",1,"2jn 2jo 2jhn"],["3 John",1,"3jn 3jo 3jhn"],["Jude",1,"jud"],["Revelation",22,"rev revelations revelationjohn revelationofjohn revelationjesuschrist apocalypse"]];
+const BKMAP=new Map(),BKINFO={};
+BK.forEach(b=>{
+  BKINFO[b[0]]=b[1];
+  BKMAP.set(b[0].toLowerCase().replace(/[^a-z0-9]/g,""),b[0]);
+  b[2].split(" ").forEach(a=>{if(a)BKMAP.set(a,b[0])});
+});
+BKMAP.set("psalm","Psalms");BKMAP.set("song","Song of Solomon");
+const FILL=new Set("the gospel according to of book epistle letter general paul apostle apostles saint st holy".split(" "));
+const ORD={first:"1",second:"2",third:"3","1st":"1","2nd":"2","3rd":"3",i:"1",ii:"2",iii:"3"};
+function bookExact(s){
+  let t=String(s||"").toLowerCase().replace(/\(.*?\)/g," ").replace(/[.,:;'’"“”]/g," ").replace(/\s+/g," ").trim();
+  if(!t||t.length>60)return null;
+  let w=t.split(" ");
+  if(w.length>1&&ORD[w[0]])w[0]=ORD[w[0]];
+  w=w.filter(x=>!FILL.has(x));
+  return BKMAP.get(w.join(""))||null;
+}
+const clean=s=>s.replace(/\s+/g," ").trim();
+const SUP="⁰¹²³⁴⁵⁶⁷⁸⁹";
+const SMALL=new Set("a an the of in on at to for and or but with by from as is are was be it his her their my our your into over under about".split(" "));
+const JUNK=/^(read full chapter|previous chapter|next chapter|previous|next|prev day|next day|listen|share|print|page options|settings|version|niv|nasb|esv|kjv|log in|reading completed|bible gateway|biblegateway)$/i;
+const JUNKP=/^(listen to |print page|use the calendar|read the bible from|bible gateway|biblegateway)/i;
+const COPY=/^(scripture quotations|copyright|new international version|the holy bible|holy bible|published by)/i;
+const FOOT=/^(footnotes?|cross[- ]references?)\s*:?\s*$/i;
+// how many verses each chapter has (only for books where this is well known)
+const NIVOMIT={"Matthew":["17:21","18:11","23:14"],"Mark":["7:16","9:44","9:46","11:26","15:28"],"Luke":["17:36","23:17"],"John":["5:4"],"Acts":["8:37","15:34","24:7","28:29"],"Romans":["16:24"]};
+const VC={"John":[51,25,36,54,47,71,53,59,41,42,57,50,38,31,27,33,26,40,42,31,25],"Romans":[32,29,31,25,21,23,25,39,33,21,36,21,14,23,33,27],"1 Corinthians":[31,16,23,21,13,20,40,13,27,33,34,31,13,40,58,24],"2 Corinthians":[24,17,18,18,21,18,16,24,15,18,33,21,14],"Galatians":[24,21,29,31,26,18],"Ephesians":[23,22,21,32,33,24],"Philippians":[30,30,21,23],"Colossians":[29,23,25,18],"Hebrews":[14,18,19,16,14,20,28,13,28,39,40,29,25],"James":[27,26,18,17,20],"1 Peter":[25,25,22,19,14],"2 Peter":[21,22,18]};
+function looksHeading(L,next){
+  if(/^\(.*\d+:\d+.*\)$/.test(L))return true;
+  const w=L.split(" ");
+  if(w.length>14||/[.;:,”"’]$/.test(L)||/^\d/.test(L)||!next||!/^\d/.test(next))return false;
+  if(!/^[A-Z“"‘]/.test(w[0]))return false;
+  const cap=w.filter(x=>/^[A-Z“"‘(]/.test(x)||SMALL.has(x.toLowerCase())).length/w.length;
+  return cap>=0.85;
+}
+function bookChap(L){
+  let m=L.match(/^(.*?)\s+chapter\s+(\d{1,3})$/i);
+  if(!m)m=L.match(/^(.*?)\s*(\d{1,3})(?:\s*[-–]\s*\d{1,3})?\s*(?:\(\s*[A-Za-z]{2,6}\s*\)|NIV|NASB|ESV|KJV|NLT|CSB)?\s*$/);
+  if(!m||!m[1])return null;
+  const b=bookExact(m[1]);if(!b)return null;
+  const c=+m[2];if(c<1||c>BKINFO[b])return null;
+  return{b,c};
+}
+// the first verse-number-looking thing in some text
+function nextNum(s){const m=s.match(/(?:^|\s|[.!?”’"')])(\d{1,3})(?=\s+\S|[A-Z“‘"(])/);return m?+m[1]:null}
+const PCACHE=new Map();
+function headRun(seg){
+  if(!seg||/[,;:]$/.test(seg)||!/[A-Za-z’']$/.test(seg))return -1;
+  const w=seg.split(" ");let k=w.length;
+  while(k>0&&w.length-k<10&&(/^[A-Z“"‘(]/.test(w[k-1])||SMALL.has(w[k-1].toLowerCase())))k--;
+  if(w.length-k<2||!/^[A-Z“"‘(]/.test(w[k]))return -1;
+  if(k>0&&!/[.!?”’"')]$/.test(w[k-1]))return -1;
+  return seg.length-w.slice(k).join(" ").length;
+}
+function findNum(t,m){
+  const x=new RegExp("(?:^|\\s)"+m+"(?:\\s+|(?=[A-Z“‘\"(]))").exec(t);
+  return x?{i:x.index,len:x[0].length}:null;
+}
+// second look: if verse numbers are missing from the sequence, look for them inside the verse before
+function repairGaps(out,rec){
+  const res=[];
+  for(let i=0;i<out.length;i++){
+    const x={b:out[i].b,c:out[i].c,v:out[i].v,t:out[i].t},y=out[i+1];
+    const vc=VC[x.b],om=NIVOMIT[x.b]||[],missing=[];
+    if(y&&y.b===x.b&&y.c===x.c&&y.v>x.v+1){for(let m=x.v+1;m<y.v;m++)missing.push(m)}
+    else if(vc&&vc[x.c-1]&&vc[x.c-1]>x.v&&(!y||y.b!==x.b||y.c>x.c)){for(let m=x.v+1;m<=vc[x.c-1];m++)missing.push(m)}
+    const pieces=[x];let cur=x;
+    for(const m of missing){
+      if(om.includes(x.c+":"+m))continue;
+      const f=findNum(cur.t,m);if(!f)continue;
+      const left=cur.t.slice(0,f.i).trim(),right=cur.t.slice(f.i+f.len).trim();
+      if(!left||!right)continue;
+      cur.t=left;cur={b:x.b,c:x.c,v:m,t:right};pieces.push(cur);rec.push(x.b+" "+x.c+":"+m);
+    }
+    if((!y||y.b!==x.b||y.c>x.c+1)&&x.c+1<=(BKINFO[x.b]||999)){
+      const c=x.c+1,f=findNum(cur.t,c);
+      if(f){
+        const left=cur.t.slice(0,f.i).trim(),right=cur.t.slice(f.i+f.len).trim();
+        if(left&&right&&nextNum(right)===2){
+          const sub=parseBibleRaw("Chapter "+c+"\n"+c+" "+right,x.b);
+          if(sub.verses.length>1){cur.t=left;sub.verses.forEach(sv=>{pieces.push({b:x.b,c:sv.c,v:sv.v,t:sv.t});rec.push(x.b+" "+sv.c+":"+sv.v)})}
+        }
+      }
+    }
+    pieces.forEach(p=>res.push(p));
+  }
+  return res;
+}
+function parseBible(raw,label){
+  const key=label+"\u0001"+raw;
+  if(PCACHE.has(key))return PCACHE.get(key);
+  const r=parseBibleRaw(raw,label);if(PCACHE.size>3)PCACHE.clear();PCACHE.set(key,r);return r;
+}
+function parseBibleRaw(raw,label){
+  const lab=bookExact(label)||bookExact(String(label||"").replace(/[\s,]*\d[\d\s\-–:,]*$/,""))||String(label||"").trim()||"Source";
+  const text=raw.replace(/\r\n?/g,"\n").replace(/[\u00a0\u2009\u200a\u202f]/g," ")
+    .replace(/\[([^\]\n]*)\]\([^)\n]*\)/g,"$1")
+    .replace(/^#+\s*/gm,"").replace(/\*+/g,"")
+    .replace(/\[[^\]\n]{15,}\]/g,"")
+    .replace(/\[(?:\d{1,3}|[A-Za-z]{1,2})\]/g,"")
+    .replace(/\(\s?[A-Z]{1,2}\s?\)/g,"")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/g,m=>" "+[...m].map(ch=>SUP.indexOf(ch)).join("")+" ")
+    .replace(/([.!?”’"')])(\d{1,3})(?=\s*[A-Z“‘"(])/g,"$1 $2")
+    .replace(/(^|[.!?”’"')]\s+)(\d{1,3})[-–](\d{1,3})(?=\s+[A-Z“‘"(])/gm,(m0,pre,a,b)=>(+b>+a&&+b-+a<=3)?pre+a:m0);
+  const lines=text.split("\n").map(s=>s.replace(/\s+/g," ").trim()).filter(Boolean);
+  let out=[];const ign=[],S={book:null,ch:null,last:0};
+  let cur=null,skip=false,assumed=false;
+  const flush=()=>{if(cur){const t=clean(cur.t.join(" "));if(t)out.push({b:cur.b,c:cur.c,v:cur.v,t});cur=null}};
+  const start=(c,v,known)=>{flush();if(S.ch===null&&!known)assumed=true;S.ch=c;S.last=v;cur={b:S.book||lab,c,v,t:[]}};
+  const addT=t=>{t=t.trim();if(!t)return;if(!cur){start(S.ch===null?1:S.ch,S.last+1);cur.imp=true}cur.t.push(t)};
+  const maxCh=()=>BKINFO[S.book||lab]||999;
+  const look=(rest,i)=>{let v=nextNum(rest);if(v===null)v=nextNum(lines.slice(i+1,i+8).join("\n"));return v===2};
+  for(let i=0;i<lines.length;i++){
+    const L=lines[i],next=lines[i+1];
+    if(FOOT.test(L)){flush();skip=true;ign.push(L);continue}
+    const bt=bookExact(L),mc=L.match(/^(?:chapter|chap\.?|ch\.?)\s*(\d{1,3})\b[\s.:\-–—]*.*$/i),bc=bookChap(L);
+    if(skip){if(bt||mc||bc)skip=false;else{if(ign.length<400)ign.push(L);continue}}
+    if(JUNK.test(L)||(JUNKP.test(L)&&L.length<=60)||COPY.test(L)||/^[a-z]\.\s/.test(L)||/^\d{1,3}\.\s/.test(L)){if(ign.length<400)ign.push(L);continue}
+    if(bt){flush();S.book=bt;S.ch=null;S.last=0;continue}
+    if(mc){flush();S.ch=+mc[1];S.last=0;continue}
+    if(bc){flush();S.book=bc.b;S.ch=bc.c;S.last=0;continue}
+    if(looksHeading(L,next)){if(ign.length<400)ign.push(L);continue}
+    let rest=L,m=rest.match(/^(.{0,80}?)(\d{1,3}):(\d{1,3})(?:\s*[-–—]\s*\d{1,3})?(?=\s|$)\s*/);
+    if(m){
+      const pre=m[1].trim();let bk=null;
+      if(!pre||(bk=bookExact(pre))||pre.toLowerCase()===String(label).trim().toLowerCase()){
+        if(bk)S.book=bk;
+        rest=rest.slice(m[0].length);
+        if(/^(NIV|NASB|ESV|KJV|NKJV|NLT|CSB)?$/.test(rest.trim())){flush();S.ch=+m[2];S.last=Math.max(0,+m[3]-1);continue}
+        start(+m[2],+m[3],true);
+      }
+    }
+    const re=/(^|\s)(\d{1,3})(?::(\d{1,3}))?(?:\s+|(?=[A-Z“"‘(])|$)/g;
+    let pos=0,mm;
+    while((mm=re.exec(rest))){
+      const before=rest.slice(0,mm.index).trim(),n=+mm[2];
+      const atStart=before==="";
+      const pp=atStart||/[,;:.!?”’"')—–\]-]$/.test(before);
+      const sentEnd=atStart||/[.!?”’"')]$/.test(before);
+      const c1=rest.charAt(re.lastIndex);
+      const nextCap=c1?/[A-Z“‘"(]/.test(c1):/^[A-Z“‘"(]/.test(next||"");
+      const impC=!!(cur&&cur.imp);
+      const segT=rest.slice(pos,mm.index).trim(),hi=(!atStart&&segT)?headRun(segT):-1;
+      let acc=null;
+      if(mm[3]){
+        const v=+mm[3];
+        if(sentEnd&&(S.ch===null||!cur||S.last===0||(n===S.ch&&v>S.last&&v<=S.last+4)||(n===S.ch+1&&v<=2)))acc={c:n,v,known:true};
+      }else{
+        const fresh=S.last===0||impC,two=()=>look(rest.slice(re.lastIndex),i);
+        if(fresh&&n===1&&(pp||hi>=0))acc={c:S.ch===null?1:S.ch,v:1,known:true,hd:!pp&&hi>=0};
+        else if(fresh&&S.ch!==null&&n===S.ch&&n!==1&&(atStart||hi>=0)&&nextCap)acc={c:S.ch,v:1,hd:!atStart&&hi>=0};
+        else if(fresh&&S.ch===null&&n>=2&&atStart&&nextCap)acc=two()?{c:n,v:1,known:true}:{c:1,v:n};
+        else if(S.last>0){
+          const d=n-S.last;
+          if(n===S.ch+1&&n<=maxCh()&&(atStart||hi>=0)&&nextCap&&two())acc={c:n,v:1,hd:!atStart&&hi>=0};
+          else if(d===1&&(pp||nextCap))acc={c:S.ch,v:n};
+          else if(d>=2&&((atStart&&nextCap)||(d<=3&&pp&&nextCap)))acc={c:S.ch,v:n};
+          else if(n===1&&S.last>=3&&pp&&nextCap&&S.ch<maxCh())acc={c:S.ch+1,v:1};
+        }
+      }
+      if(acc){
+        if(impC&&acc.v===1)cur=null;
+        else{const txt=rest.slice(pos,mm.index);addT(acc.hd?txt.slice(0,txt.length-txt.replace(/^\s+/,"").length+hi):txt)}
+        start(acc.c,acc.v,acc.known);pos=re.lastIndex;
+      }
+    }
+    addT(rest.slice(pos));
+  }
+  flush();
+  const rec=[];out=repairGaps(out,rec);
+  const seen=new Set(),verses=[];let dup=0;
+  out.forEach(x=>{const k=x.b+"|"+x.c+"|"+x.v;if(seen.has(k)){dup++;return}seen.add(k);verses.push(x)});
+  const rep=reportFor(verses,dup,raw,assumed);
+  if(rec.length)rep.checks.push("Recovered "+rec.length+" verse"+(rec.length>1?"s":"")+" whose numbers were hard to spot: "+rec.slice(0,12).join(", ")+(rec.length>12?"…":""));
+  return{verses,ignored:ign,notes:rep.notes,checks:rep.checks,books:rep.books,norm:verses.map(x=>x.b+" "+x.c+":"+x.v+" "+x.t).join("\n")};
+}
+function reportFor(vs,dup,raw,assumed){
+  const by=new Map();
+  vs.forEach(x=>{let b=by.get(x.b);if(!b){b={name:x.b,ch:new Map(),n:0};by.set(x.b,b)}b.n++;b.ch.set(x.c,Math.max(b.ch.get(x.c)||0,x.v))});
+  const books=[],notes=[],checks=[];
+  by.forEach(b=>{
+    const cs=[...b.ch.keys()].sort((a,z)=>a-z),max=BKINFO[b.name];
+    const lo=cs[0],hi=cs[cs.length-1],miss=[];
+    for(let c=lo;c<=hi;c++)if(!b.ch.has(c))miss.push(c);
+    const bk={name:b.name,lo,hi,chapters:cs.length,verses:b.n,max,omitted:0};books.push(bk);
+    if(miss.length)notes.push(b.name+": chapter"+(miss.length>1?"s ":" ")+miss.slice(0,12).join(", ")+(miss.length>12?"…":"")+" not found in the text.");
+    else if(max&&lo===1&&hi===max)checks.push(b.name+": all "+max+" chapters are there ✔");
+    if(max&&hi>max)notes.push(b.name+" only has "+max+" chapters, but the text has a chapter "+hi+". Check the numbering.");
+    const vc=VC[b.name];let vcBad=0;
+    if(vc){
+      const om2=NIVOMIT[b.name]||[],bad=[];
+      cs.forEach(c=>{
+        const e=vc[c-1];if(!e)return;
+        const have=new Set(vs.filter(x=>x.b===b.name&&x.c===c).map(x=>x.v)),first=Math.min(...have);
+        const miss=[];for(let m=first;m<=e;m++)if(!have.has(m)&&!om2.includes(c+":"+m))miss.push(m);
+        const extra=[...have].filter(m=>m>e);
+        if((miss.length||extra.length)&&bad.length<10)bad.push("chapter "+c+(miss.length?" is missing verse"+(miss.length>1?"s ":" ")+miss.slice(0,15).join(", ")+(miss.length>15?"…":""):"")+(extra.length?(miss.length?" and":"")+" has numbers past verse "+e:""));
+      });
+      vcBad=bad.length;
+      if(bad.length)notes.push(b.name+": "+bad.join("; ")+".");
+    }
+    const gapsAll=[],starts=[];
+    cs.forEach(c=>{const vv=vs.filter(x=>x.b===b.name&&x.c===c).map(x=>x.v);vv.forEach((v,i)=>{if(i>0)for(let m=vv[i-1]+1;m<v;m++)gapsAll.push(c+":"+m)});if(vv[0]!==1&&starts.length<3)starts.push(c+":"+vv[0])});
+    const om=NIVOMIT[b.name]||[],known=gapsAll.filter(g=>om.includes(g)),unknown=gapsAll.filter(g=>!om.includes(g));
+    bk.omitted=known.length;
+    if(vc&&!vcBad){const exp=cs.reduce((a,c)=>a+(vc[c-1]||0),0),got=b.n+bk.omitted;checks.push(b.name+" "+(lo===hi?"chapter "+lo:"chapters "+lo+"–"+hi)+": "+got+" verse numbers"+(got===exp?", exactly the standard count ✔":" (the standard count is "+exp+")"))}
+    if(known.length)checks.push(b.name+" "+known.join(", ")+" "+(known.length>1?"are":"is")+" left out of the NIV, so I counted "+(known.length>1?"them":"it")+" as a verse number ✔");
+    if(starts.length)notes.push(b.name+": "+starts.join(", ")+" begin"+(starts.length>1?"":"s")+" partway into the chapter (fine if you only use part of it).");
+    if(unknown.length&&!vc)notes.push(b.name+": no verse "+unknown.slice(0,12).join(", ")+(unknown.length>12?"…":"")+". Check the text if that is a mistake.");
+  });
+  if(assumed)notes.push("No chapter number was found at the start, so the first chapter was assumed. Add a heading like “John 5” above the text if that is wrong.");
+  if(dup)notes.push(dup+" repeated verse"+(dup>1?"s were":" was")+" ignored.");
+  if(vs.length&&vs.length<5&&raw.split(/\s+/).length>150)notes.push("Very few verses were found. Make sure the verse numbers are included in the pasted text.");
+  return{books,notes,checks};
+}
+
+/* ---------- source text view ---------- */
+let V=[],IDX={};
+function renderSrcReport(res){
+  const box=$("srcReport");box.innerHTML="";
+  if(!res)return;
+  const h=document.createElement("div");h.className="ans";
+  const t=document.createElement("b");
+  const tot=res.verses.length+res.books.reduce((a,b)=>a+(b.omitted||0),0);
+  t.textContent="What the site found: "+tot+" verses"+(tot!==res.verses.length?" ("+res.verses.length+" with text)":"");
+  h.appendChild(t);
+  res.books.forEach(b=>{
+    const d=document.createElement("div");
+    d.textContent=b.name+": chapter"+(b.lo===b.hi?" ":"s ")+(b.lo===b.hi?b.lo:b.lo+"–"+b.hi)+(b.max?" (of "+b.max+")":"")+", "+(b.verses+(b.omitted||0))+" verses"+(b.omitted?" ("+b.verses+" with text)":"");
+    h.appendChild(d);
+  });
+  (res.checks||[]).forEach(n=>{const d=document.createElement("div");d.textContent="✔ "+n;h.appendChild(d)});
+  res.notes.forEach(n=>{const d=document.createElement("div");d.className="hint";d.textContent="• "+n;h.appendChild(d)});
+  const grp={};res.verses.forEach(x=>{const g=grp[x.b]=grp[x.b]||{};g[x.c]=(g[x.c]||0)+1});
+  const det=document.createElement("details");det.style.marginTop="8px";
+  const sm=document.createElement("summary");sm.textContent="Verses found in each chapter";det.appendChild(sm);
+  Object.keys(grp).forEach(b=>{
+    const d=document.createElement("div");d.className="hint";
+    d.textContent=b+": "+Object.keys(grp[b]).map(Number).sort((a,z)=>a-z).map(c=>{
+      const e=VC[b]&&VC[b][c-1],om=(NIVOMIT[b]||[]).filter(g=>g.indexOf(c+":")===0).length;
+      return c+" → "+grp[b][c]+(e?" of "+(e-om):"");
+    }).join("  ·  ");
+    det.appendChild(d);
+  });
+  h.appendChild(det);
+  if(res.ignored&&res.ignored.length){
+    const dt=document.createElement("details");dt.style.marginTop="8px";
+    const s2=document.createElement("summary");s2.textContent="Lines the site skipped as headings or page clutter ("+res.ignored.length+")";dt.appendChild(s2);
+    res.ignored.slice(0,60).forEach(l=>{const d=document.createElement("div");d.className="hint";d.textContent=l.slice(0,90);dt.appendChild(d)});
+    h.appendChild(dt);
+  }
+  box.appendChild(h);
+}
+function srcInput(){
+  const show=!!(SRC&&IS_ADMIN);
+  $("srcLabel").value=show?SRC.label:"";$("srcText").value=show?SRC.raw:"";srcDirty=false;
+  $("srcSaved").textContent=SRC?"Saved: “"+SRC.label+"”, last saved "+new Date(SRC.saved||Date.now()).toLocaleString()+". It stays here until you remove it yourself.":"Nothing saved yet.";
+}
+function applySrc(){
+  const res=SRC?parseBible(SRC.raw,SRC.label):null;
+  V=res?res.verses.map(x=>({b:x.b,c:x.c,v:x.v,t:x.t})):[];
+  renderSrcReport(res);
+  build();
+  refresh();
+  if(typeof jmRefresh==="function")jmRefresh();
+  return res;
+}
+function srcMsg(t){$("srcMsg").textContent=t}
+async function persistSrc(rec){
+  if(!IS_ADMIN)return{l:false,i:false,d:false,t:false};
+  const l=store.set("bq3_src",rec);
+  const i=await idb.set("bq3_src",rec);
+  askPersist();
+  const d=await dbSaveSrc(rec);
+  const t=IS_ADMIN?await teamSave(rec):false;
+  return{l,i,d,t};
+}
+function saveNote(r,what){
+  const where=[];if(r.l)where.push("this browser");if(r.i)where.push("a backup copy");if(r.d)where.push("your account");if(r.t)where.push("the team copy");
+  return where.length?what+" ✔ Kept in "+where.join(", ")+". It stays until you remove it here.":what+", but this view will not let me save, so it would be lost when you close the page.";
+}
+// bring in a newer copy found in another place (backup copy or account)
+function adoptSrc(rec){
+  const ok=isSrc(rec);
+  SRC=ok?rec:null;SRC_TS=stampOf(rec)||1;
+  store.set("bq3_src",ok?rec:{removed:true,label:"",raw:"",saved:SRC_TS});
+  if(ok)upgradeSrc();
+  if(!srcDirty)srcInput();
+  applySrc();
+}
+// re-read saved text with the newest reader without ever losing verses
+function upgradeSrc(){
+  if(!isSrc(SRC)||SRC.ver===READER_VER)return;
+  try{
+    const base=SRC.paste||SRC.raw,fresh=parseBible(base,SRC.label),old=parseBible(SRC.raw,SRC.label);
+    if(fresh.verses.length&&fresh.verses.length>=old.verses.length)SRC=Object.assign({},SRC,{raw:fresh.norm,paste:SRC.paste||(base!==fresh.norm?base:undefined),ver:READER_VER});
+    else SRC=Object.assign({},SRC,{ver:READER_VER});
+    store.set("bq3_src",SRC);idb.set("bq3_src",SRC);
+  }catch(e){}
+}
+$("srcText").addEventListener("input",()=>{srcDirty=true});
+$("srcLabel").addEventListener("input",()=>{srcDirty=true});
+$("srcSave").onclick=async()=>{
+  if(!IS_ADMIN){srcMsg("Sign in as an administrator first.");return}
+  const label=$("srcLabel").value.trim(),raw=$("srcText").value;
+  if(!label){srcMsg("Type a label first, for example John.");return}
+  if(raw.trim().length<30){srcMsg("Paste the Bible text into the big box first.");return}
+  const res=parseBible(raw,label);
+  if(!res.verses.length){srcMsg("I couldn’t find any verses in that text. Make sure verse numbers are included. Your saved text was not changed.");return}
+  const back=parseBible(res.norm,label);
+  const rec={label,raw:res.norm,saved:Date.now(),ver:READER_VER};
+  if(raw!==res.norm)rec.paste=raw;
+  SRC=rec;SRC_TS=rec.saved;
+  $("srcText").value=SRC.raw;srcDirty=false;
+  applySrc();
+  $("srcSaved").textContent="Saving…";srcMsg("Saving…");
+  const r=await persistSrc(rec);
+  $("srcSaved").textContent="Saved: “"+label+"”, last saved "+new Date(rec.saved).toLocaleString()+". It stays here until you remove it yourself.";
+  checkLayers();
+  srcMsg((back.verses.length!==res.verses.length?"Careful: when I read the saved text back I got "+back.verses.length+" verses instead of "+res.verses.length+". ":"")+saveNote(r,"Saved")+(!r.d&&window.claude&&!DB_OK?" To also keep it safe when the site is updated and share it with your team, press “Allow saving to my account” below.":""));
+};
+let clearArmed=false;
+$("srcClear").onclick=async()=>{
+  if(!IS_ADMIN)return;
+  if(!clearArmed){clearArmed=true;$("srcClear").textContent="Tap again to remove";setTimeout(()=>{clearArmed=false;$("srcClear").textContent="Remove source text"},4000);return}
+  clearArmed=false;$("srcClear").textContent="Remove source text";
+  const tomb={removed:true,label:"",raw:"",saved:Date.now()};
+  SRC=null;SRC_TS=tomb.saved;
+  srcInput();applySrc();srcMsg("Source text removed.");
+  await persistSrc(tomb);checkLayers();
+};
+/* ---------- administrator sign in (a light lock, not bank-grade security) ---------- */
+const ADM_SALT="ca233459574f9d757d4621b555d5c554",ADM_ITER=100000,ADM_HASH="3a97f04bbe1cb1acfc32006f1d1a7f4ce955e625be0b8dadd1218d2cc862407a";
+let IS_ADMIN=false,admTries=0,admLock=0;
+try{IS_ADMIN=window.sessionStorage.getItem("bq_admin")===ADM_HASH}catch(e){}
+if(!IS_ADMIN){const k=store.get("bq3_admin",null);if(k&&k.h===ADM_HASH)IS_ADMIN=true}
+async function adminHash(pw){
+  const enc=new TextEncoder(),key=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:enc.encode(ADM_SALT),iterations:ADM_ITER,hash:"SHA-256"},key,256);
+  return[...new Uint8Array(bits)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+function adminUI(){
+  $("adminLogin").classList.toggle("hidden",IS_ADMIN);
+  $("srcCard").classList.toggle("hidden",!IS_ADMIN);
+  if(IS_ADMIN){srcInput();checkLayers()}
+}
+$("admIn").onclick=async()=>{
+  const m=$("admMsg");
+  if(Date.now()<admLock){m.textContent="Too many tries. Wait a little and try again.";return}
+  const pw=$("admPw").value;
+  if(!pw){m.textContent="Type the administrator password.";return}
+  if(!(window.crypto&&crypto.subtle)){m.textContent="Sign in isn’t available in this view. Open the site over a secure (https) link.";return}
+  let h="";try{h=await adminHash(pw)}catch(e){m.textContent="Sign in isn’t available in this view.";return}
+  if(h===ADM_HASH){
+    IS_ADMIN=true;admTries=0;$("admPw").value="";m.textContent="";
+    try{window.sessionStorage.setItem("bq_admin",ADM_HASH)}catch(e){}
+    if($("admKeep").checked)store.set("bq3_admin",{h:ADM_HASH,t:Date.now()});
+    adminUI();
+  }else{
+    admTries++;m.textContent="That password isn’t right.";
+    if(admTries>=5){admLock=Date.now()+30000;admTries=0;m.textContent="Too many tries. Wait 30 seconds and try again."}
+  }
+};
+$("admPw").addEventListener("keydown",e=>{if(e.key==="Enter")$("admIn").click()});
+$("admOut").onclick=()=>{
+  IS_ADMIN=false;
+  try{window.sessionStorage.removeItem("bq_admin")}catch(e){}
+  store.set("bq3_admin",null);
+  adminUI();
+};
+async function getPerm(){try{if(!window.claude||typeof window.claude.use!=="function")return null;return await window.claude.use("permissions")}catch(e){return null}}
+async function dbState(){
+  if(!window.claude||typeof window.claude.use!=="function")return"none";
+  try{const pm=await getPerm();if(pm)return await pm.state("db")}catch(e){}
+  return DB?"granted":"unavailable";
+}
+// connect to the account storage; if interactive, ask the viewer for permission
+async function ensureDb(interactive){
+  try{
+    await dbInit();if(!DB)return false;
+    const pm=await getPerm();let st=pm?await pm.state("db"):"granted";
+    if(st!=="granted"&&interactive&&pm){
+      if(st==="denied"){try{await pm.manage()}catch(e){}}else await pm.request(["db","user"]);
+      st=await pm.state("db");
+    }
+    DB_OK=st==="granted";return DB_OK;
+  }catch(e){return false}
+}
+async function checkLayers(){
+  const L=$("layerList");if(!L||!IS_ADMIN)return;
+  const lines=[];
+  const add=(ok,t)=>lines.push((ok===true?"✔ ":ok===false?"✗ ":"• ")+t);
+  const when=x=>new Date(x.saved||Date.now()).toLocaleString();
+  const loc=store.get("bq3_src",undefined);
+  add(isSrc(loc),"This browser: "+(isSrc(loc)?"saved ("+loc.label+", "+when(loc)+")":"nothing saved here"));
+  const ib=await idb.get("bq3_src");
+  add(isSrc(ib),"Backup copy in this browser: "+(isSrc(ib)?"saved":"nothing saved here"));
+  const st=await dbState();
+  if(st==="none")add(null,"Your account and the team copy: not available here. Open the site inside Claude to use them.");
+  else if(st==="granted"){
+    await ensureDb(false);
+    if(DB_OK){
+      const r=await dbLoadSrc();add(isSrc(r),"Your account: "+(isSrc(r)?"saved ("+r.label+", "+when(r)+")":"nothing saved yet"));
+      const t=await teamLoad();add(isSrc(t),"Team copy (what other people load): "+(isSrc(t)?"saved ("+t.label+", "+when(t)+")":"nothing saved yet"));
+    }else add(false,"Your account: not available. Sign in to Claude to use it.");
+  }
+  else if(st==="prompt")add(false,"Your account and the team copy: waiting for your permission. Press “Allow saving to my account”.");
+  else if(st==="denied")add(false,"Your account and the team copy: permission was declined. Turn it on from this artifact’s Permissions menu.");
+  else add(null,"Your account and the team copy: not available in this view.");
+  L.innerHTML="";lines.forEach(t=>{const d=document.createElement("div");d.textContent=t;L.appendChild(d)});
+  $("srcAllow").classList.toggle("hidden",!(st==="prompt"||st==="denied"));
+}
+$("srcCheck").onclick=checkLayers;
+$("srcAllow").onclick=async()=>{
+  const ok=await ensureDb(true);
+  if(ok){
+    const r=await dbLoadSrc();
+    if(r&&stampOf(r)>SRC_TS)adoptSrc(r);
+    else if(SRC){const a=await dbSaveSrc(SRC),t=await teamSave(SRC);srcMsg(a?"Saved to your account"+(t?" and the team copy":"")+" ✔ It will survive site updates.":"Couldn’t save to your account.")}
+  }else srcMsg("Permission wasn’t granted.");
+  checkLayers();
+};
+$("srcDownload").onclick=async()=>{
+  if(!SRC){srcMsg("Nothing to back up yet.");return}
+  try{
+    const dl=window.claude&&typeof window.claude.use==="function"?await window.claude.use("downloads"):null;
+    if(dl){await dl.save({filename:(SRC.label.replace(/[^\w\- ]+/g,"").trim().replace(/\s+/g,"-")||"source")+"-source-text.txt",data:SRC.raw});srcMsg("Accept the save prompt to keep the backup file.");return}
+  }catch(e){}
+  $("srcText").value=SRC.raw;
+  srcMsg("Downloads aren’t available here. Your full text is in the box above, so you can copy it somewhere safe.");
+};
+// people who are not administrators load the team copy with one tap
+$("teamLoad").onclick=async()=>{
+  $("homeSrc").textContent="Loading the team source text…";
+  const ok=await ensureDb(true);
+  if(ok){const t=await teamLoad();if(t&&isSrc(t)){adoptSrc(t);return}}
+  homeInfo();
+  $("homeSrc").textContent+=ok?" The administrator hasn’t shared source text yet.":" I couldn’t reach the team copy. Allow access when asked, and open the site inside Claude.";
+};
+$("srcSite").onclick=async()=>{
+  if(!IS_ADMIN)return;
+  if(!SRC){srcMsg("Save your source text first.");return}
+  try{
+    const r=await fetch(location.href.split("#")[0],{cache:"no-store"});
+    if(!r.ok)throw new Error("fetch");
+    let html=await r.text();
+    const re=/<script type="application\/json" id="bakedSrc">[\s\S]*?<\/script>/;
+    if(!re.test(html))throw new Error("marker");
+    const rec={label:SRC.label,raw:SRC.raw,saved:Date.now(),ver:READER_VER};
+    const json=JSON.stringify(rec).replace(/</g,"\\u003c");
+    html=html.replace(re,()=>'<script type="application/json" id="bakedSrc">'+json+'</scr'+'ipt>');
+    let done=false;
+    try{const dl=window.claude&&typeof window.claude.use==="function"?await window.claude.use("downloads"):null;if(dl){await dl.save({filename:"index.html",data:html});done=true}}catch(e){}
+    if(!done){
+      const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));a.download="index.html";
+      document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);
+    }
+    srcMsg("Your site file (index.html) is ready. Upload it to your web host. Uploading a new one later replaces the old site.");
+  }catch(e){
+    srcMsg("I couldn’t build the site file from this view. Open the site from your own web address (not inside Claude) and try again, or send the source text to the person who built the site.");
+  }
+};
+$("styleSel").value=style;
+$("styleSel").onchange=()=>{style=$("styleSel").value;savePrefs();refresh()};
+
+
+/* ---------- question engine ---------- */
+const words=t=>t.split(" ");
+const key=w=>w.slice(0,5).map(x=>x.toLowerCase().replace(/[^a-z0-9’'-]/g,"")).join(" ");
+function sStarts(w){const r=[];for(let i=1;i<w.length;i++){
+  if((/[.!?]["”’)]*$/.test(w[i-1])&&/^["“‘'(]?[A-Z]/.test(w[i]))||/^[“"‘]/.test(w[i]))r.push(i)}return r}
+const nxt=i=>(V[i+1]&&V[i+1].b===V[i].b&&V[i+1].c===V[i].c&&V[i+1].v===V[i].v+1)?V[i+1]:null;
+function build(){
+  /* V is filled in by applySrc() */
+  const cv={},cs={},starts=[];
+  V.forEach((x,i)=>{
+    const w=words(x.t);if(w.length>=5){const k=key(w);cv[k]=(cv[k]||0)+1}
+    sStarts(w).forEach(n=>{if(w.length-n>=5){const k=key(w.slice(n));cs[k]=(cs[k]||0)+1;starts.push({i,n,k})}});
+  });
+  IDX={ftv:[],f2v:[],ft:[],ftn:[]};
+  V.forEach((x,i)=>{const w=words(x.t);if(w.length<5)return;const u=cv[key(w)]===1;
+    if(u&&w.length>=6)IDX.ftv.push(i);if(u&&nxt(i))IDX.f2v.push(i)});
+  starts.forEach(s=>{if(cs[s.k]!==1)return;const w=words(V[s.i].t),rest=w.length-s.n,nx=nxt(s.i);
+    if(rest>=6)IDX.ft.push(s);if(nx)IDX.ftn.push(s)});
+  buildQX();
+}
+const ref=(x,y)=>x.b+" "+x.c+":"+x.v+(y?"-"+y.v:"");
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function canGen(t){if(QXT.includes(t))return QX[t].length+QXF[t].length>0;if(t==="SIT")return SITC.length>0;return t==="Q"?V.length>0:t==="Q2V"?V.some((_,i)=>nxt(i)):({FTV:IDX.ftv,FT:IDX.ft,F2V:IDX.f2v,FTN:IDX.ftn})[t].length>0}
+function gen(t){
+  if(QXT.includes(t))return genQX(t);if(t==="SIT")return genSIT();
+  if(t==="Q"){const x=pick(V);return{t,r:ref(x),q:"Quote "+x.b+", chapter "+x.c+", verse "+x.v+".",a:x.t}}
+  if(t==="Q2V"){const c=[];V.forEach((_,i)=>{if(nxt(i))c.push(i)});const i=pick(c),x=V[i],y=nxt(i);
+    return{t,r:ref(x,y),q:"Quote "+x.b+", chapter "+x.c+", verses "+x.v+" and "+y.v+".",a:x.t+" "+y.t}}
+  if(t==="FTV"){const x=V[pick(IDX.ftv)],w=words(x.t);return{t,r:ref(x),q:w.slice(0,5).join(" ")+" …",a:w.slice(5).join(" ")}}
+  if(t==="F2V"){const i=pick(IDX.f2v),x=V[i],y=nxt(i),w=words(x.t+" "+y.t);return{t,r:ref(x,y),q:w.slice(0,5).join(" ")+" …",a:w.slice(5).join(" ")}}
+  const s=pick(t==="FT"?IDX.ft:IDX.ftn),x=V[s.i],w=words(x.t).slice(s.n),y=t==="FTN"?nxt(s.i):null;
+  const all=y?w.concat(words(y.t)):w;
+  return{t,r:ref(x,y),q:all.slice(0,5).join(" ")+" …",a:all.slice(5).join(" ")}
+}
+const bankList=()=>custom.slice();
+function avail(){const s=new Set();GEN.forEach(t=>{if(V.length&&canGen(t))s.add(t)});bankList().forEach(x=>s.add(x.t));if(style==="epistle")s.delete("SIT");return s}
+function lookup(r){
+  const m=String(r).match(/^(.+?)\s+(?:ch(?:apter)?\.?\s*)?(\d+)\s*(?::|,?\s*v(?:erses?|s)?\.?\s*)(\d+)(?:\s*[-–]\s*(\d+))?$/i);
+  if(!m)return"";
+  const b=(bookExact(m[1])||m[1].trim()).toLowerCase(),a=+m[3],z=+(m[4]||m[3]);
+  return V.filter(x=>x.b.toLowerCase()===b&&x.c==m[2]&&x.v>=a&&x.v<=z).map(x=>x.v+" "+x.t).join(" ");
+}
+function canonRef(r){
+  const m=String(r).trim().match(/^(.+?)\s+(?:ch(?:apter)?\.?\s*)?(\d+)\s*(?::|,?\s*v(?:erses?|s)?\.?\s*)(\d+)(?:\s*[-–]\s*(\d+))?$/i);
+  if(!m)return r.trim();
+  return (bookExact(m[1])||m[1].trim())+" "+m[2]+":"+m[3]+(m[4]?"-"+m[4]:"");
+}
+
+/* ---------- practice view ---------- */
+let sel=new Set(),cur=null,last=null,asked=0,right=0,tInt=null,tLeft=30,timedOut=false,autoFx=null;
+function fx(kind){
+  const layer=$("fx");if(!layer)return;
+  layer.innerHTML="";
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const n=reduce?14:(kind==="good"?130:50);
+  const cols=["#ffd23f","#ff5d73","#2ee6a6","#ffffff","#ff9f1c","#b388ff","#4dd0ff"];
+  for(let i=0;i<n;i++){
+    const p=document.createElement("i");
+    p.className="fxp "+(kind==="good"?"conf":"olive");
+    p.style.left=(Math.random()*100)+"%";
+    p.style.animationDuration=((kind==="good"?2.4:3.4)+Math.random()*2)+"s";
+    p.style.animationDelay=(Math.random()*0.9)+"s";
+    p.style.setProperty("--dx",(Math.random()*180-90)+"px");
+    p.style.setProperty("--rot",(Math.random()*900-450)+"deg");
+    if(kind==="good"){const w=7+Math.random()*7;p.style.width=w+"px";p.style.height=(w*1.6)+"px";p.style.background=cols[i%cols.length]}
+    else{const z=0.75+Math.random()*0.8;p.style.width=(20*z)+"px";p.style.height=(30*z)+"px"}
+    layer.appendChild(p);
+  }
+  clearTimeout(fx.t);fx.t=setTimeout(()=>{layer.innerHTML=""},7000);
+}
+TYPES.forEach(([k,n])=>{
+  const b=document.createElement("button");b.className="chip";b.textContent=k;b.title=n;b.dataset.k=k;
+  b.onclick=()=>{sel.has(k)?sel.delete(k):sel.add(k);refresh()};$("chips").appendChild(b);
+  const o=document.createElement("option");o.value=k;o.textContent=k+" – "+n;$("fType").appendChild(o);
+});
+function refresh(){
+  renderQList();poolInfo();homeInfo();const av=avail();
+  document.querySelectorAll(".chip").forEach(c=>{if(c.dataset.k){c.classList.toggle("on",sel.has(c.dataset.k));c.classList.toggle("dim",!av.has(c.dataset.k))}});
+  $("filterHint").textContent=mode==="quiz"?"In the 20-question quiz the types follow the rulebook’s mix, so these filters are not used.":sel.size?"Only asking: "+[...sel].join(", ")+".":"No filters on, so you’ll get random questions from every available type.";
+  $("srcInfo").textContent=SRC&&V.length?"Source: "+SRC.label+" ("+V.length+" verses). Faded types have no questions yet.":"No source text yet. An administrator can add it under Source Text to unlock questions.";
+}
+$("clearBtn").onclick=()=>{sel.clear();refresh()};
+function noQ(msg){$("qArea").innerHTML="";const p=document.createElement("p");p.className="hint";p.textContent=msg;$("qArea").appendChild(p);$("showBtn").classList.add("hidden");$("grade").classList.add("hidden");cur=null}
+function newQ(){
+  autoFx=null;ttsStop();stopTimer();
+  let q,num;
+  if(mode==="quiz"){
+    if(QZ.done||!QZ.list.length){const r=buildQuiz();QZ={list:r.list,i:0,res:[],notes:r.notes,done:false}}
+    if(!QZ.list.length){noQ("No questions available yet. An administrator can add the source text under Source Text.");return}
+    if(cur&&!curGraded&&QZ.list.indexOf(cur)>=0&&QZ.res.length<QZ.i)QZ.res.push({t:cur.t,ok:false});
+    if(QZ.i>=QZ.list.length){quizSummary();return}
+    $("modeHint").textContent=QZ.notes||"Question "+(QZ.i+1)+" of "+QZ.list.length+".";
+    $("newBtn").textContent="Next question";
+    q=QZ.list[QZ.i];QZ.i++;num=QZ.i;
+  }else{
+    const av=avail(),types=(sel.size?[...sel]:TYPES.map(x=>x[0])).filter(t=>av.has(t));
+    if(!types.length){noQ("No questions available for that choice yet. An administrator can add the source text under Source Text.");return}
+    let tries=0;
+    do{q=pickQ(pick(types));tries++}while(tries<40&&(!q||(recent.includes(q.r+"|"+q.q)&&tries<25)));
+    if(!q){noQ("Couldn’t build a question from that choice. Try different types.");return}
+    recent.push(q.r+"|"+q.q);if(recent.length>12)recent.shift();
+    num=++freeNum;
+  }
+  last=cur=q;curGraded=false;
+  const name=TYPES.find(x=>x[0]===q.t)[1];
+  $("qArea").innerHTML='<p style="margin:12px 0 0"><span class="badge">'+q.t+'</span> <span class="hint">'+name+'</span></p><p class="hint" id="introLine" style="margin:8px 0 0;white-space:pre-line"></p><p class="hint" id="spkStatus" style="margin:8px 0 0"></p><div class="row hidden" id="spkRow" style="margin:8px 0"><button class="btn alt" id="spkReplay">Replay</button><button class="btn alt" id="spkShow">Show the words</button></div><p class="qtext" id="qq"></p><details class="hint" style="margin:0 0 10px"><summary>About this question type</summary><div id="helpTxt" style="margin-top:6px"></div></details><div id="ansIO"><textarea id="ansIn" placeholder="Type your answer, or tap the microphone key on your keyboard to say it… (Ctrl+Enter submits)" style="min-height:80px;font-family:inherit;font-size:1.05rem"></textarea><div class="row"><button class="btn" id="subBtn">Submit answer</button></div></div><div class="ans hidden" id="ansBox"><div id="verdict" style="margin-bottom:8px"></div><b>Answer:</b> <span id="ansTxt"></span><br><span class="hint" id="refTxt"></span><div class="hint" id="ctxTxt"></div></div>';
+  $("introLine").textContent="Question number "+num+(mode==="quiz"?" of "+QZ.list.length:"")+(/^(INT|MA|FT|FTV|F2V|FTN)$/.test(q.t)?" is an ":" is a ")+q.t+" question.\nQuestion number "+num+", question:";
+  $("helpTxt").textContent=TYPE_HELP[q.t]||"";
+  $("spkReplay").onclick=()=>speakQuestion(q,num);$("spkShow").onclick=revealWords;
+  $("qq").textContent=q.q;$("ansTxt").textContent=q.a;$("refTxt").textContent="Reference: "+q.r;
+  $("subBtn").onclick=()=>{timedOut=false;reveal($("ansIn").value)};
+  $("ansIn").onkeydown=e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();timedOut=false;reveal($("ansIn").value)}};
+  const ctx=WP.includes(q.t)?"":lookup(q.r);$("ctxTxt").textContent=ctx?"From your source text: "+ctx:"";
+  $("showBtn").classList.remove("hidden");$("grade").classList.add("hidden");beginQuestion(q,num);
+}
+const nz=s=>s.toLowerCase().replace(/[’‘]/g,"'").replace(/[-—–]/g," ").replace(/[^a-z0-9'\s]/g," ").replace(/\s+/g," ").trim();
+const STOP=new Set("the a an of and to in is was be that it he she they his her him them for on with as at by".split(" "));
+function judge(g,q){
+  if(!g.trim())return{ok:false,msg:"No answer given."};
+  const E=nz(q.a).split(" ").filter(Boolean),G=nz(g).split(" ").filter(Boolean);
+  if(WP.includes(q.t)){
+    if(E.join(" ")===G.join(" "))return{ok:true,msg:"Word-perfect! ✔"};
+    const pool=G.slice(),miss=[];E.forEach(w=>{const k=pool.indexOf(w);k>=0?pool.splice(k,1):miss.push(w)});
+    if(!miss.length&&!pool.length)return{ok:false,msg:"Right words, but in a different order."};
+    return{ok:false,msg:"Not word-perfect."+(miss.length?" Missing or different: "+miss.slice(0,8).join(", ")+(miss.length>8?"…":""):" You added extra words.")};
+  }
+  const cj=w=>w==="christ"?"jesus":w,G2=G.map(cj),E2=E.map(cj);
+  const C=E2.filter(w=>!STOP.has(w)),B=C.length?C:E2,f=B.filter(w=>G2.includes(w)).length/B.length;
+  return f>=0.75?{ok:true,msg:"Looks correct ✔"}:{ok:false,msg:"Not quite. Compare with the answer below."};
+}
+function reveal(given){
+  if(!cur)return;
+  clearInterval(tInt);tInt=null;ttsStop();revealWords();
+  $("ansIO").classList.add("hidden");$("ansBox").classList.remove("hidden");
+  $("showBtn").classList.add("hidden");$("grade").classList.remove("hidden");
+  const v=$("verdict");v.innerHTML='<div class="hint" style="margin:0"></div><b></b>';
+  if(given===null){v.querySelector("b").textContent=timedOut?"Time’s up!":"";return}
+  const r=judge(given,cur);
+  autoFx=r.ok?"good":"bad";fx(autoFx);
+  v.firstChild.textContent=given.trim()?"You said: “"+given.trim()+"”":"";
+  v.querySelector("b").textContent=(timedOut?"Time’s up! ":"")+r.msg+" (a suggestion; you decide below)";
+}
+function show(){timedOut=false;reveal(null)}
+function score(ok){asked++;if(ok)right++;if(mode==="quiz"&&cur&&!curGraded)QZ.res.push({t:cur.t,ok});curGraded=true;stats();const k=ok?"good":"bad";if(autoFx!==k)fx(k);newQ()}
+function stats(){$("sAsked").textContent=asked;$("sRight").textContent=right;$("sPct").textContent=asked?Math.round(right/asked*100)+"%":"0%"}
+$("newBtn").onclick=newQ;$("showBtn").onclick=show;$("rightBtn").onclick=()=>score(true);$("wrongBtn").onclick=()=>score(false);
+$("resetBtn").onclick=()=>{asked=right=0;stats()};
+function stopTimer(){clearInterval(tInt);tInt=null;tLeft=30;timedOut=false;$("timer").textContent=30;$("timer").classList.remove("low");$("bar").style.width="100%";$("bar").classList.remove("low");$("timerBtn").textContent="Pause"}
+function tick(){
+  tLeft--;$("timer").textContent=Math.max(tLeft,0);$("timer").classList.toggle("low",tLeft<=10);
+  $("bar").style.width=Math.max(tLeft,0)/30*100+"%";$("bar").classList.toggle("low",tLeft<=10);
+  if(tLeft<=0){clearInterval(tInt);tInt=null;if(cur&&$("ansIO")&&!$("ansIO").classList.contains("hidden")){timedOut=true;reveal($("ansIn").value)}}
+}
+function startTimer(){stopTimer();tInt=setInterval(tick,1000)}
+$("timerBtn").onclick=()=>{
+  if(!cur||!$("ansIO")||$("ansIO").classList.contains("hidden"))return;
+  if(tInt){clearInterval(tInt);tInt=null;$("timerBtn").textContent="Resume"}
+  else if(tLeft>0){tInt=setInterval(tick,1000);$("timerBtn").textContent="Pause"}
+};
+
+
+/* ---------- shared helpers ---------- */
+const nw=s=>s.toLowerCase().replace(/[^a-z0-9’'-]/g,"");
+function homeInfo(){
+  const el=$("homeSrc");if(!el)return;
+  el.textContent=SRC&&V.length?"Source text loaded: "+SRC.label+" ("+V.length+" verses).":"No source text is loaded yet. An administrator can add it under Source Text.";
+  const tl=$("teamLoad");if(tl)tl.classList.toggle("hidden",!!SRC||!(window.claude&&typeof window.claude.use==="function"));
+}
+function renderQList(){
+  const L=$("qList");if(!L)return;
+  L.innerHTML=custom.length?"":'<p class="hint" style="margin:0">Nothing saved yet. Add one with the form above.</p>';
+  custom.forEach((q,i)=>{
+    const d=document.createElement("div");d.className="book";
+    d.innerHTML='<div style="flex:1;min-width:200px"><span class="badge"></span> <b></b><div class="hint" style="margin:2px 0 0"></div></div><button class="btn bad">Delete</button>';
+    d.querySelector(".badge").textContent=q.t;d.querySelector("b").textContent=q.q;d.querySelector(".hint").textContent=q.r+" → "+q.a;
+    d.querySelector("button").onclick=()=>{custom.splice(i,1);savePrefs();refresh()};
+    L.appendChild(d);
+  });
+}
+
+/* ---------- smart generator: INT, MA, CR, CVR, CRMA, CVRMA, SIT ---------- */
+const QXT=["INT","MA","CR","CVR","CRMA","CVRMA"];
+let QX={},QXF={},SITC=[],G4=new Map(),G5=new Map(),PERSET=new Set(),PLASET=new Set();
+const DET=new Set("the a an his her their my our your its this that these those every each all any no some".split(" "));
+const NUMW=new Set("one two three four five six seven eight nine ten eleven twelve hundred thousand first second third".split(" "));
+const PREPW=new Set("to with for from by about against toward towards among".split(" "));
+const PLACEP=new Set("in at into near throughout around".split(" "));
+const PERSONW=new Set("god lord jesus christ father spirit son people disciples disciple jews pharisees crowd servants servant brothers brother sister sisters mother woman women man men children child soldiers priests apostles apostle gentiles guards guard friends friend king rabbi teacher master leaders leader ruler rulers prophets prophet".split(" "));
+const BADW=new Set("we i you he she they it said says went came saw gave took was were had has have is are be been did do does made told asked replied answered called found sent knew began put let and but or so then that which who when while because if for with from into not".split(" "));
+const SPEECH=new Set("said replied answered asked says saw went called told came wept sat rose took gave stood heard knew believed loved".split(" "));
+const strip=t=>t.replace(/^[“"‘(]+/,"").replace(/[.,;:!?”"’)]+$/,"");
+const lw=t=>strip(t).toLowerCase();
+const isEnd=t=>/[,;:.!?”"’)]$/.test(t);
+const startsQ=t=>/^[“"‘]/.test(t);
+const KEEPCAP=new Set("I God Lord Jesus Christ Father Spirit Son Jews Gentiles Pharisees Sabbath Holy".split(" "));
+function gramMap(n){
+  const m=new Map();
+  V.forEach((x,i)=>{const w=words(x.t).map(nw).filter(Boolean);
+    for(let k=0;k+n<=w.length;k++){const key=w.slice(k,k+n).join(" ");let a=m.get(key);if(!a){a=[];m.set(key,a)}if(a[a.length-1]!==i)a.push(i)}});
+  return m;
+}
+function nameStats(){
+  PERSET=new Set();PLASET=new Set();
+  const low=new Set(),per={},pla={};
+  V.forEach(x=>words(x.t).forEach(r=>{const a=strip(r);if(/^[a-z]/.test(a))low.add(a.toLowerCase())}));
+  V.forEach(x=>{const w=words(x.t);w.forEach((r,i)=>{
+    const a=strip(r).replace(/[’']s$/,"");
+    if(!/^[A-Z][a-z]{2,}$/.test(a)||low.has(a.toLowerCase()))return;
+    const pt=i>0?w[i-1]:"";
+    if(i===0||/[.!?]["”’)]*$/.test(pt)||startsQ(r))return;
+    const nx=i+1<w.length?lw(w[i+1]):"",pv=lw(pt);
+    if(SPEECH.has(nx)||pv==="named")per[a]=(per[a]||0)+1;
+    if(PLACEP.has(pv))pla[a]=(pla[a]||0)+1;
+  })});
+  Object.keys(per).forEach(a=>{if(per[a]>(pla[a]||0))PERSET.add(a)});
+  Object.keys(pla).forEach(a=>{if(pla[a]>(per[a]||0))PLASET.add(a)});
+}
+function lastNonDet(qw){let j=qw.length-1;while(j>0&&DET.has(lw(qw[j])))j--;return lw(qw[j])}
+function interFor(A,qw){
+  const a=A.toLowerCase(),last=lw(qw[qw.length-1]),pw=lastNonDet(qw);
+  if(PERSONW.has(a)||PERSET.has(A))return PREPW.has(lw(qw[qw.length-1]))?"whom":"who";
+  if(PLASET.has(A))return"where";
+  if(/^[A-Z]/.test(A))return null;
+  if(DET.has(last)&&!BADW.has(a)&&!NUMW.has(a)&&!/(ed|ing|ly)$/.test(a))return"what";
+  return null;
+}
+function findLists(w){
+  const segs=[];let a=0;
+  for(let k=0;k<w.length;k++){
+    const t=w[k],bare=lw(t);
+    if(bare==="and"&&!/[,;:.!?]$/.test(t)){if(k===a)a=k+1;else{segs.push({a,z:k,p:" "});a=k+1}}
+    else if(/[,;:.!?”"]$/.test(t)){segs.push({a,z:k+1,p:t.slice(-1)});a=k+1}
+  }
+  if(a<w.length)segs.push({a,z:w.length,p:""});
+  segs.forEach(sg=>{const f=strip(w[sg.a]);if(sg.a>0&&/^[A-Z]/.test(f)&&!DET.has(f.toLowerCase())){let k=sg.a+1;while(k<sg.z&&/^[A-Z]/.test(strip(w[k])))k++;if(k<sg.z){sg.z=k;sg.p=""}}});
+  const okItem=sg=>{
+    const len=sg.z-sg.a;if(len<1||len>4)return false;
+    const f=w[sg.a],fl=lw(f),cap=/^[A-Z]/.test(strip(f));if(startsQ(f))return false;
+    if(!(DET.has(fl)||NUMW.has(fl)||(cap&&sg.a>0)))return false;
+    for(let k=sg.a;k<sg.z;k++){const b=lw(w[k]);if(BADW.has(b)||(/ed$/.test(b)&&b.length>4&&!/^(hundred|bread)$/.test(b)))return false}
+    return true;
+  };
+  const out=[];let run=[];
+  const flush=()=>{if(run.length>=2)out.push({a0:run[0].a,items:run.map(r=>[r.a,r.z])});run=[]};
+  segs.forEach(sg=>{
+    if(okItem(sg)){run.push(sg);if(!(sg.p===","||sg.p===" "))flush()}
+    else{
+      flush();
+      if(sg.p===","||sg.p===" "){for(let k=sg.a+1;k<sg.z;k++){const t2={a:k,z:sg.z,p:sg.p};if(sg.z-k<=4&&okItem(t2)){run.push(t2);break}}}
+    }
+  });
+  flush();
+  return out;
+}
+function listInter(w,L){
+  const last=L.items.map(it=>strip(w[it[1]-1]));
+  if(last.every(t=>PERSONW.has(t.toLowerCase())||PERSET.has(t)))return"who";
+  if(last.every(t=>PLASET.has(t)))return"where";
+  if(last.every(t=>/^[A-Z]/.test(t)&&!PLASET.has(t)))return"who";
+  return"what";
+}
+function speakerOf(b,a){
+  const NAME="([A-Z][\\w’']*(?: (?:the |of )?[A-Z][\\w’']*)*|[Tt]he [a-z]+)";
+  const VB="(?:said|replied|answered|asked|says|declared|exclaimed|shouted|told|spoke|responded)";
+  const TO="(?: to ((?:the )?[a-z]+|[A-Z][\\w’']*))?";
+  const m=b.match(new RegExp(NAME+" "+VB+TO+"[,:]?\\s*$"))||a.match(new RegExp("^[,.]?\\s*"+NAME+" "+VB+TO));
+  if(!m)return null;
+  const NOT=new Set("He She They We I It You Then So But And When After Now While Until As".split(" "));
+  let who=m[1].split(" ");while(who.length&&NOT.has(who[0]))who.shift();
+  if(!who.length)return null;
+  who=who.join(" ");who=who.charAt(0).toUpperCase()+who.slice(1);
+  let to=m[2]||null;if(to&&/^(them|him|her|me|you|us|it)$/i.test(to))to=null;
+  return{who,to};
+}
+function buildQX(){
+  QXT.forEach(t=>{QX[t]=[];QXF[t]=[]});SITC=[];
+  if(!V.length)return;
+  G5=gramMap(5);G4=gramMap(4);nameStats();
+  const typeOf=(i,ph,n)=>{
+    const k=ph.slice(0,n).map(nw);if(k.length<n||k.some(z=>!z))return null;
+    const arr=(n===5?G5:G4).get(k.join(" "))||[],x=V[i];let c=0;
+    arr.forEach(j=>{if(V[j].b===x.b&&V[j].c===x.c)c++});
+    return arr.length<=1?"INT":c<=1?"CR":"CVR";
+  };
+  V.forEach((x,i)=>{
+    const w=words(x.t),n=w.length;if(n<7)return;
+    for(let e=5;e<n;e++){
+      if(!isEnd(w[e])&&e!==n-1)continue;
+      const A=strip(w[e]);if(!/^[A-Za-z-]{3,}$/.test(A))continue;
+      const inter=interFor(A,w.slice(0,e));if(!inter)continue;
+      for(let s=Math.max(0,e-14);s<=e-5;s++){
+        const qw=w.slice(s,e);
+        if(qw.some(z=>lw(z)===A.toLowerCase()))continue;
+        const t=typeOf(i,qw,5);if(!t)continue;
+        const pref=s===0||/[.!?]["”’)]*$/.test(w[s-1])||startsQ(w[s]);
+        if(t==="INT"&&!pref)continue;
+        (pref?QX:QXF)[t].push({i,s,e,inter,pos:"end"});
+      }
+    }
+    const A0=strip(w[0]);
+    if(/^[A-Z][a-z]{2,}$/.test(A0)&&lw(w[1])!=="and"&&(PERSET.has(A0)||PLASET.has(A0))){
+      for(let m=7;m<=Math.min(n,16);m++){
+        if(!isEnd(w[m-1])&&m!==n)continue;
+        if(/[”"]$/.test(w[m-1]))continue;
+        const qw=w.slice(1,m);
+        if(qw.some(z=>lw(z)===A0.toLowerCase()))continue;
+        const t=typeOf(i,qw,4);if(!t)continue;
+        QX[t].push({i,s:1,m,inter:PERSET.has(A0)?"who":"where",pos:"start"});
+      }
+    }
+    findLists(w).forEach(L=>{
+      if(L.a0<5)return;
+      const inter=listInter(w,L);
+      for(let s=Math.max(0,L.a0-20);s<=L.a0-5;s++){
+        const t0=typeOf(i,w.slice(s,L.a0),5);if(!t0)continue;
+        const t={INT:"MA",CR:"CRMA",CVR:"CVRMA"}[t0];
+        const pref=s===0||/[.!?]["”’)]*$/.test(w[s-1])||startsQ(w[s]);
+        if(t==="MA"&&!pref)continue;
+        (pref?QX:QXF)[t].push({i,s,a0:L.a0,items:L.items,inter,pos:"end"});
+      }
+    });
+    const re=/[“"]([^“”"]{20,}?)[”"]/g;let q;
+    while((q=re.exec(x.t))){
+      const qt=q[1].trim(),qw=qt.split(" ");if(qw.length<6)continue;
+      const key=qw.slice(0,5).map(nw);if(key.some(z=>!z))continue;
+      if((G5.get(key.join(" "))||[]).length!==1)continue;
+      const sp=speakerOf(x.t.slice(0,q.index),x.t.slice(q.index+q[0].length));
+      if(sp)SITC.push({i,q:qt,who:sp.who,to:sp.to});
+    }
+  });
+}
+function composeQ(x,t,qw,pos,inter){
+  let body=pos==="end"?qw.join(" ").replace(/[,;:.!]+$/,"")+" "+inter+"?":inter.charAt(0).toUpperCase()+inter.slice(1)+" "+qw.join(" ").replace(/[,;:.!?]+$/,"")+"?";
+  const pre=t.startsWith("CVR")?"According to "+x.b+", chapter "+x.c+", verse "+x.v+", ":t.startsWith("CR")?"According to "+x.b+", chapter "+x.c+", ":"";
+  if(pre&&pos==="start")body=body.charAt(0).toLowerCase()+body.slice(1);
+  if(pre&&pos==="end"){const f=strip(qw[0]);if(/^[A-Z]/.test(f)&&!(PERSET.has(f)||PLASET.has(f)||KEEPCAP.has(f))&&!startsQ(qw[0]))body=body.charAt(0).toLowerCase()+body.slice(1)}
+  return pre+body;
+}
+function genQX(t){
+  const L=QX[t].length?QX[t]:QXF[t],c=pick(L),x=V[c.i],w=words(x.t);let qw,ans;
+  if(c.items){qw=w.slice(c.s,c.a0);ans=c.items.map(it=>strip(w.slice(it[0],it[1]).join(" "))).join("; ")}
+  else if(c.pos==="end"){qw=w.slice(c.s,c.e);ans=strip(w[c.e])}
+  else{qw=w.slice(c.s,c.m);ans=strip(w[0])}
+  ans=ans.charAt(0).toUpperCase()+ans.slice(1);
+  return{t,r:ref(x),q:composeQ(x,t,qw,c.pos,c.inter),a:ans};
+}
+function genSIT(){
+  const c=pick(SITC),x=V[c.i],ints=["Who said it?"];let a=c.who;
+  if(c.to){ints.push("To whom?");a+=", to "+c.to}
+  return{t:"SIT",r:ref(x),q:"I need to know: "+ints.join(" ")+" “"+c.q+"”",a};
+}
+function pickQ(t){
+  const b=bankList().filter(x=>x.t===t),g=V.length&&canGen(t);
+  if(g&&b.length)return Math.random()<.35?pick(b):gen(t);
+  if(g)return gen(t);
+  return b.length?pick(b):null;
+}
+function poolCount(t){
+  if(QXT.includes(t)){const k=new Set();[].concat(QX[t],QXF[t]).forEach(c=>k.add(c.i+"|"+(c.items?"L"+c.a0:c.pos==="end"?"E"+c.e:"S"+c.m)));return k.size}
+  if(t==="SIT")return style==="narrative"?SITC.length:0;
+  if(t==="Q")return V.length;
+  if(t==="Q2V"){let n=0;V.forEach((_,i)=>{if(nxt(i))n++});return n}
+  return({FTV:IDX.ftv,FT:IDX.ft,F2V:IDX.f2v,FTN:IDX.ftn})[t].length;
+}
+function poolInfo(){
+  const el=$("poolInfo");if(!el)return;
+  if(!V.length){el.textContent="";return}
+  let tot=0;const parts=TYPES.map(([k])=>{const n=poolCount(k);tot+=n;return k+" "+n.toLocaleString()});
+  el.textContent="Questions the site can build from your text: about "+tot.toLocaleString()+" in total ("+parts.join(" · ")+").";
+}
+/* ---------- practice: quiz mode, reading structure, type help, type checker (from the rulebook) ---------- */
+const TYPE_HELP={
+  INT:"One answer. One interrogative word (Who, Whom, Whose, What, Why, Where, When, Which or How) is added at the very start or the very end. The first 5 words appear in only one verse.",
+  MA:"Like an Interrogative question, but the answer has more than one part. Say every part.",
+  CR:"Starts with “According to [book], chapter [number],”. The words appear more than once in the book but only once in that chapter. One answer.",
+  CVR:"Starts with “According to [book], chapter [number], verse [number],”. The words appear in more than one verse of that chapter, so the verse is named. One answer.",
+  CRMA:"A Chapter Reference question with more than one answer.",
+  CVRMA:"A Chapter Verse Reference question with more than one answer.",
+  Q:"Quote the whole verse, word for word. The reference is part of the question.",
+  Q2V:"Quote two verses in a row, word for word. The reference is part of the question.",
+  FTV:"The first 5 words of a verse are read. Finish the verse word for word. If you jump early, say the words that were not read too.",
+  FT:"Starts at the beginning of a sentence or quotation in the middle of a verse. Finish to the end of the verse, word for word.",
+  F2V:"Starts at the beginning of a verse. Finish through the end of the next verse, word for word.",
+  FTN:"Starts in the middle of a verse. Finish through the end of the next verse, word for word.",
+  SIT:"Tell the situation of a quotation: who said it, to whom, how, why, when, where or about whom. You do not have to repeat the quote word for word."
+};
+let mode="free",QZ={list:[],i:0,res:[],notes:"",done:false},curGraded=true,freeNum=0;
+// the rulebook's mix for one 20-question quiz (section 4.4)
+const QGROUPS=[["INT",["INT"],7,14],["MA",["MA"],2,4],["REF",["CR","CVR","CRMA","CVRMA"],3,5],["Q",["Q","Q2V"],2,3],["FIN",["FT","FTN","FTV","F2V"],3,5],["SIT",["SIT"],2,4]];
+function buildQuiz(){
+  const av=avail(),notes=[];
+  const gs=QGROUPS.map(g=>({k:g[0],types:g[1].filter(t=>av.has(t)&&!(t==="SIT"&&style==="epistle")),mn:g[2],mx:g[3]}));
+  gs.forEach(g=>{if(!g.types.length){if(g.mn>0&&!(g.k==="SIT"&&style==="epistle"))notes.push("No "+g.k+" questions are available, so the quiz has fewer of that kind.");g.mn=0;g.mx=0}});
+  const cnt=gs.map(g=>g.mn);let sum=cnt.reduce((a,b)=>a+b,0);
+  while(sum<20){const room=gs.map((g,i)=>cnt[i]<g.mx?i:-1).filter(i=>i>=0);if(!room.length)break;cnt[pick(room)]++;sum++}
+  const list=[],seen=new Set();
+  const take=(t)=>{for(let k=0;k<60;k++){const q=pickQ(t);if(q&&!seen.has(q.r+"|"+q.q)){seen.add(q.r+"|"+q.q);return q}}return null};
+  gs.forEach((g,gi)=>{
+    for(let n=0;n<cnt[gi];n++){
+      let pool=g.types;
+      if(g.k==="REF"&&n===0){const p=pool.filter(t=>t==="CVR"||t==="CVRMA");if(p.length)pool=p}
+      else if(g.k==="REF"&&n===1){const p=pool.filter(t=>t==="CR"||t==="CRMA");if(p.length)pool=p}
+      const q=take(pick(pool))||take(pick(g.types));
+      if(q)list.push(q);
+    }
+  });
+  // if some kind of question ran out, fill the quiz from the other kinds (staying inside the rulebook's limits first)
+  const have=()=>gs.map(g=>list.filter(q=>g.types.includes(q.t)).length);
+  let guard=0,relaxed=false;
+  while(list.length<20&&guard++<300){
+    const h=have();let opts=gs.map((g,i)=>g.types.length&&h[i]<g.mx?i:-1).filter(i=>i>=0);
+    if(!opts.length||guard>150){opts=gs.map((g,i)=>g.types.length?i:-1).filter(i=>i>=0);relaxed=true}
+    if(!opts.length)break;
+    const g=gs[pick(opts)],q=take(pick(g.types));if(q)list.push(q);
+  }
+  if(relaxed)notes.push("Your source text could not supply every kind of question, so some limits in the rulebook’s mix were relaxed.");
+  for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}
+  if(list.length<20)notes.push("This quiz has "+list.length+" questions, because your source text can’t supply 20 different ones.");
+  return{list,notes:notes.join(" ")};
+}
+function setMode(m){
+  mode=m;freeNum=0;ttsStop();stopTimer();cur=null;
+  $("modeFree").classList.toggle("on",m==="free");$("modeQuiz").classList.toggle("on",m==="quiz");
+  QZ={list:[],i:0,res:[],notes:"",done:false};
+  $("modeHint").textContent=m==="quiz"?"A 20-question quiz with the mix of question types the rulebook requires and no repeats. Press Start quiz.":"";
+  $("newBtn").textContent=m==="quiz"?"Start quiz":"New question";
+  noQ(m==="quiz"?"Press “Start quiz” for a 20-question quiz. Each question counts toward your score at the end.":"Press “New question” to begin. The 30-second timer starts right away. To answer out loud, tap the microphone key on your keyboard.");
+  refresh();
+}
+$("resetBtn").addEventListener("click",()=>{freeNum=0});
+$("modeFree").onclick=()=>setMode("free");
+$("modeQuiz").onclick=()=>setMode("quiz");
+function quizSummary(){
+  const res=QZ.res,ok=res.filter(x=>x.ok).length;
+  const box=$("qArea");box.innerHTML="";
+  const h=document.createElement("h2");h.textContent="Quiz finished";box.appendChild(h);
+  const p=document.createElement("p");p.style.fontSize="1.3rem";p.style.fontWeight="700";p.textContent=ok+" of "+res.length+" correct ("+(res.length?Math.round(ok/res.length*100):0)+"%)";box.appendChild(p);
+  const by={};res.forEach(x=>{const b=by[x.t]=by[x.t]||{n:0,ok:0};b.n++;if(x.ok)b.ok++});
+  Object.keys(by).forEach(t=>{const d=document.createElement("div");d.className="hint";d.textContent=t+": "+by[t].ok+" of "+by[t].n;box.appendChild(d)});
+  $("showBtn").classList.add("hidden");$("grade").classList.add("hidden");cur=null;QZ.done=true;QZ.list=[];
+  $("newBtn").textContent="Start another quiz";
+  const pc=ok/(res.length||1);fx(pc>=0.6?"good":"bad");
+}
+
+/* ----- the type checker ----- */
+const IWORDS=["who","whom","whose","what","why","where","when","which","how"];
+const nrm=t=>String(t).toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9' ]/g," ").replace(/\s+/g," ").trim();
+function versesWith(phrase){
+  const pw=nrm(phrase).split(" ").filter(Boolean),out=[];
+  if(!pw.length)return out;
+  V.forEach((x,i)=>{
+    const vw=nrm(x.t).split(" ");
+    for(let k=0;k+pw.length<=vw.length;k++){let ok=true;for(let j=0;j<pw.length;j++)if(vw[k+j]!==pw[j]){ok=false;break}if(ok){out.push({i,k});break}}
+  });
+  return out;
+}
+function classifyQ(qRaw,aRaw){
+  const T=String(qRaw).trim().replace(/\s+/g," "),A=String(aRaw||"").trim(),why=[],warn=[];
+  if(!T)return null;
+  const parts=A.split(/;|,\s*(?:and\s+)?|\s+and\s+/).map(x=>x.trim()).filter(Boolean);
+  const multi=parts.length>1&&parts.every(x=>x.split(" ").length<=5);
+  const res=(t,extra)=>({t,why,warn});
+  let m;
+  // Quote questions
+  if(/^quote\b/i.test(T)){
+    const two=/\bverses\b/i.test(T);
+    why.push("Starts with “Quote” and names "+(two?"two verses":"one verse")+".");
+    if(!/^quote\s+.+,\s*chapter\s+\d+,\s*verses?\s+\d+/i.test(T))warn.push("The form should be: Quote [book], chapter [number], verse"+(two?"s":"")+" [number"+(two?"s":"")+"].");
+    return res(two?"Q2V":"Q");
+  }
+  // Situation questions
+  if(/^i need to know\b/i.test(T)||/^(who said it|to whom|about whom|how|why|when|where)\?\s*["“]/i.test(T)){
+    const q=(T.match(/["“]([\s\S]+)["”]?\s*$/)||[])[1]||"";
+    why.push("It asks about the situation of a quotation (who said it, to whom, and so on).");
+    if(style==="epistle")warn.push("Situation questions are only used when the material is narrative, and your source text is marked epistle.");
+    const n=(T.match(/(who said it|to whom|about whom|how|why|when|where)\?/gi)||[]).length;
+    if(n>3)warn.push("A Situation question can ask up to 3 things, and this asks "+n+".");
+    if(q&&V.length){const f=versesWith(q.split(" ").slice(0,5).join(" "));if(!f.length)warn.push("I couldn’t find the start of the quotation in your source text.");else if(f.length>1)warn.push("The quotation’s first 5 words appear in "+f.length+" verses, but they must be unique.")}
+    return res("SIT");
+  }
+  // Reference questions
+  if((m=T.match(/^according to\s+(.+?),\s*chapter\s+(\d+),\s*(verse\s+(\d+),\s*)?([\s\S]+)$/i))){
+    const cv=!!m[3],rest=m[5];
+    why.push("Starts with “According to … chapter "+m[2]+(cv?", verse "+m[4]:"")+",” so it is a "+(cv?"Chapter Verse Reference":"Chapter Reference")+" question"+(multi?" with more than one answer.":"."));
+    const f0=IWORDS.indexOf(nrm(rest).split(" ")[0])>=0,l0=IWORDS.indexOf(nrm(rest).split(" ").slice(-1)[0])>=0;
+    if(!f0&&!l0)warn.push("An interrogative word (Who, Whom, Whose, What, Why, Where, When, Which, How) must be at the very start or the very end.");
+    if(f0&&l0)warn.push("Only one interrogative word may be added.");
+    if(V.length){
+      const body=f0?rest.replace(/^\S+\s*/,""):rest.replace(/\s*\S+\s*$/,"");
+      const f=versesWith(body.split(" ").slice(0,f0?4:5).join(" "));
+      if(!f.length)warn.push("I couldn’t find these words in your source text. Questions must be word for word.");
+      else{
+        const ch=f.filter(x=>V[x.i].c==+m[2]&&V[x.i].b===V[f[0].i].b).length;
+        if(f.length<=1)warn.push("These opening words appear in only one verse of the book, so this should be a plain Interrogative question (no “According to”).");
+        else if(!cv&&ch>1)warn.push("These words appear more than once in chapter "+m[2]+", so the verse number is needed (Chapter Verse Reference).");
+        else if(cv&&ch<=1)warn.push("These words appear only once in chapter "+m[2]+", so a Chapter Reference question is enough.");
+        else why.push("The opening words appear "+f.length+" times in the book"+(cv?" and in more than one verse of the chapter":" but once in the chapter")+", which fits.");
+      }
+    }
+    return res((cv?"CVR":"CR")+(multi?"MA":""));
+  }
+  const wds=T.replace(/[….]+$/,"").trim().split(" "),firstW=nrm(wds[0]).split(" ")[0],lastW=nrm(wds[wds.length-1]).split(" ").slice(-1)[0];
+  const hasI=IWORDS.indexOf(firstW)>=0||IWORDS.indexOf(lastW)>=0;
+  // Finish questions: exactly 5 words of the material, no interrogative word
+  if(!hasI&&wds.length===5){
+    why.push("The question text is exactly 5 words of the material, so it is a Finish question.");
+    if(!V.length)return res("Finish","");
+    const f=versesWith(wds.join(" "));
+    if(!f.length){warn.push("I couldn’t find these 5 words in your source text.");return res("Finish")}
+    if(f.length>1)warn.push("These 5 words appear in "+f.length+" verses, but a Finish question’s first 5 words must be unique.");
+    const x=V[f[0].i],nv=nrm(x.t),full=nrm(wds.join(" ")+" "+A),atStart=f[0].k===0,nx=V[f[0].i+1]&&V[f[0].i+1].b===x.b&&V[f[0].i+1].c===x.c?V[f[0].i+1]:null;
+    const tail=nv.split(" ").slice(f[0].k).join(" ");
+    const two=nx?tail+" "+nrm(nx.t):"";
+    let t="Finish";
+    if(full===tail)t=atStart?"FTV":"FT";
+    else if(nx&&full===two)t=atStart?"F2V":"FTN";
+    else{warn.push("The question and answer together don’t match the end of the verse (or the next verse) word for word. Checking the nearest type.");t=atStart?"FTV":"FT"}
+    why.push(atStart?"It begins at the start of "+x.b+" "+x.c+":"+x.v+".":"It begins in the middle of "+x.b+" "+x.c+":"+x.v+".");
+    if(!A){warn.push("Add the answer to tell "+(atStart?"Finish the Verse from Finish 2 Verses":"Finish This from Finish This and the Next")+".");return res(atStart?"FTV":"FT")}
+    if(!atStart){const pre=x.t.split(" ");const w0=pre.slice(0,f[0].k).slice(-1)[0]||"";if(!/[.!?]["”’)]*$/.test(w0)&&!/^[“"‘]/.test(wds[0]))warn.push("A Finish This question must start at the beginning of a sentence or a quotation.")}
+    why.push(t==="FTV"||t==="FT"?"It finishes at the end of that verse.":"It finishes at the end of the next verse.");
+    return res(t);
+  }
+  // Interrogative and Multiple Answer
+  if(hasI){
+    const f0=IWORDS.indexOf(firstW)>=0,l0=IWORDS.indexOf(lastW)>=0;
+    if(f0&&l0)warn.push("Only one interrogative word may be added.");
+    why.push("It has an interrogative word at the very "+(f0?"start":"end")+(multi?" and the answer has more than one part.":"."));
+    const body=f0?T.replace(/^\S+\s*/,"").replace(/\?$/,""):T.replace(/\?$/,"").replace(/\s*\S+$/,"");
+    if(V.length){
+      const f=versesWith(body.split(" ").slice(0,f0?4:5).join(" "));
+      if(!f.length)warn.push("I couldn’t find these words in your source text. Questions must be word for word.");
+      else if(f.length>1){
+        const c=V[f[0].i].c;const ch=f.filter(x=>V[x.i].c===c).length;
+        warn.push("The opening words appear in "+f.length+" verses, so this needs “According to…”: a "+(ch>1?"Chapter Verse Reference":"Chapter Reference")+" question.");
+      }else why.push("The opening words appear in only one verse ("+V[f[0].i].b+" "+V[f[0].i].c+":"+V[f[0].i].v+"), so no reference words are needed.");
+    }
+    return res(multi?"MA":"INT");
+  }
+  warn.push("I can’t tell which type this is. Check that it follows one of the rulebook forms.");
+  return res("?");
+}
+$("chkBtn").onclick=()=>{
+  const out=$("chkOut");out.innerHTML="";out.classList.remove("hidden");
+  const r=classifyQ($("chkQ").value,$("chkA").value);
+  const add=(tag,text,cls)=>{const d=document.createElement(tag);if(cls)d.className=cls;d.textContent=text;out.appendChild(d);return d};
+  if(!r){add("b","Paste a question first.");return}
+  const name=(TYPES.find(x=>x[0]===r.t)||[0,r.t==="?"?"Not sure":"Finish question"])[1];
+  add("b","Detected type: "+(r.t==="?"?"not sure":r.t+" ("+name+")"));
+  r.why.forEach(w=>add("div","✔ "+w).style.margin="6px 0 0");
+  r.warn.forEach(w=>add("div","Check: "+w).style.margin="6px 0 0");
+  if(!r.warn.length&&r.t!=="?")add("div","Nothing breaks the rulebook’s rules that I can see.","hint");
+  if(TYPE_HELP[r.t])add("div",TYPE_HELP[r.t],"hint");
+};
+
+/* ---------- reading aloud ---------- */
+const TTS={ok:!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),on:false,rate:1,voiceURI:""};
+const SPOKEN_TYPE={INT:"an interrogative",MA:"a multiple answer",CR:"a chapter reference",CVR:"a chapter verse reference",CRMA:"a chapter reference multiple answer",CVRMA:"a chapter verse reference multiple answer",Q:"a quote",Q2V:"a quote two verses",FTV:"a finish the verse",FT:"a finish this",F2V:"a finish two verses",FTN:"a finish this and the next",SIT:"a situation"};
+function ttsOn(){return TTS.ok&&TTS.on}
+function ttsStop(){try{if(window.speechSynthesis)window.speechSynthesis.cancel()}catch(e){}}
+function ttsUnlock(){try{if(TTS.ok){const u=new SpeechSynthesisUtterance(" ");u.volume=0;window.speechSynthesis.speak(u)}}catch(e){}}
+function ttsSay(text,o){
+  o=o||{};let done=false,tm=null;
+  const fin=bad=>{if(done)return;done=true;clearTimeout(tm);if(bad&&o.onfail)o.onfail();if(o.onend)o.onend()};
+  try{
+    const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=o.rate||1;
+    const vo=ttsVoice();if(vo){u.voice=vo;u.lang=vo.lang||"en-US"}
+    if(o.onstart)u.onstart=o.onstart;
+    u.onend=()=>fin(false);u.onerror=()=>fin(true);
+    tm=setTimeout(()=>fin(false),Math.max(3000,text.length*130/(o.rate||1)+2000));
+    window.speechSynthesis.speak(u);
+  }catch(e){fin(true)}
+}
+function setSpeak(on){
+  TTS.on=!!on&&TTS.ok;
+  ["spkPractice","spkJump"].forEach(id=>{const e=$(id);if(e)e.checked=TTS.on});
+  saveSpeak();
+  if(!TTS.on)ttsStop();
+}
+{
+  const sv=store.get("bq3_speak",null);
+  if(sv){TTS.on=!!sv.on&&TTS.ok;TTS.rate=+sv.rate||1;TTS.voiceURI=sv.voice||""}
+  ["spkPractice","spkJump"].forEach(id=>{$(id).checked=TTS.on;$(id).disabled=!TTS.ok;$(id).onchange=()=>setSpeak($(id).checked)});
+  const sp=$("spkSpeed"),opts=[...sp.options].map(o=>+o.value);
+  sp.value=String(opts.indexOf(TTS.rate)>=0?TTS.rate:1);
+  sp.onchange=()=>{TTS.rate=+sp.value;saveSpeak()};
+  const msg=TTS.ok?"":"This browser can’t read aloud, so this switch is turned off.";
+  $("spkHint").textContent=msg;$("spkHint2").textContent=msg;
+}
+function saveSpeak(){store.set("bq3_speak",{on:TTS.on,rate:TTS.rate,voice:TTS.voiceURI})}
+function ttsVoice(){
+  if(!TTS.voiceURI)return null;
+  try{return(window.speechSynthesis.getVoices()||[]).find(v=>v.voiceURI===TTS.voiceURI)||null}catch(e){return null}
+}
+// a list of the voices installed on this device, so each person can choose the one they like
+function fillVoices(){
+  if(!TTS.ok)return;
+  let vs=[];try{vs=window.speechSynthesis.getVoices()||[]}catch(e){}
+  const en=vs.filter(v=>/^en/i.test(v.lang)).sort((a,b)=>a.name.localeCompare(b.name));
+  ["spkVoice","spkVoice2"].forEach(id=>{
+    const sel=$(id);if(!sel)return;sel.innerHTML="";
+    const d=document.createElement("option");d.value="";d.textContent="Automatic (this device’s default)";sel.appendChild(d);
+    en.forEach(v=>{const o=document.createElement("option");o.value=v.voiceURI;o.textContent=v.name+" ("+v.lang+")";sel.appendChild(o)});
+    sel.value=en.some(v=>v.voiceURI===TTS.voiceURI)?TTS.voiceURI:"";
+    sel.disabled=!TTS.ok;
+  });
+}
+["spkVoice","spkVoice2"].forEach(id=>{$(id).onchange=()=>{TTS.voiceURI=$(id).value;saveSpeak();fillVoices()}});
+["spkTest","spkTest2"].forEach(id=>{$(id).disabled=!TTS.ok;$(id).onclick=()=>{ttsUnlock();ttsStop();ttsSay("Question number one is an interrogative question. Who said it?",{rate:TTS.rate})}});
+fillVoices();
+try{window.speechSynthesis.addEventListener("voiceschanged",fillVoices)}catch(e){try{window.speechSynthesis.onvoiceschanged=fillVoices}catch(e2){}}
+function revealWords(){
+  const a=$("qq"),b=$("introLine"),c=$("spkStatus");
+  if(a)a.classList.remove("hidden");if(b)b.classList.remove("hidden");if(c)c.textContent="";
+}
+function questionSpeech(q,num){
+  return "Question number "+num+" is "+(SPOKEN_TYPE[q.t]||"a")+" question. Question number "+num+", question: "+String(q.q).replace(/…/g,"").replace(/\s+/g," ").trim();
+}
+function speakQuestion(q,num){
+  ttsStop();stopTimer();
+  $("spkStatus").textContent="Listening to the question…";
+  ttsSay(questionSpeech(q,num),{rate:TTS.rate,onfail:()=>revealWords(),onend:()=>{
+    if(cur===q&&$("ansIO")&&!$("ansIO").classList.contains("hidden")){const s=$("spkStatus");if(s&&s.textContent)s.textContent="Your turn. You have 30 seconds.";startTimer()}
+  }});
+}
+function beginQuestion(q,num){
+  const sp=ttsOn();
+  $("spkRow").classList.toggle("hidden",!sp);$("qq").classList.toggle("hidden",sp);$("introLine").classList.toggle("hidden",sp);
+  if(sp)speakQuestion(q,num);else startTimer();
+}
+
+/* ---------- question bank view ---------- */
+$("addBtn").onclick=()=>{
+  const x={t:$("fType").value,r:canonRef($("fRef").value),q:$("fQ").value.trim(),a:$("fA").value.trim()};
+  if(!x.r||!x.q||!x.a){$("addMsg").textContent="Fill in every field first.";return}
+  const found=V.length?!!lookup(x.r):true;
+  custom.push(x);savePrefs();$("fRef").value=$("fQ").value=$("fA").value="";
+  $("addMsg").textContent="Added ✔ ("+custom.length+" saved)"+(found?"":". Note: that reference isn’t in your source text.");refresh();
+};
+$("exportBtn").onclick=()=>{$("json").value=JSON.stringify(custom,null,1);$("jsonMsg").textContent=custom.length+" saved question(s)."};
+$("importBtn").onclick=()=>{
+  try{const arr=JSON.parse($("json").value),ok=arr.filter(x=>x&&TYPES.some(t=>t[0]===x.t)&&x.r&&x.q&&x.a);
+    custom=custom.concat(ok);savePrefs();refresh();
+    $("jsonMsg").textContent="Imported "+ok.length+" of "+arr.length+". Each needs t (type), r, q, a."}
+  catch(e){$("jsonMsg").textContent="That isn’t valid JSON. Example: [{\"t\":\"INT\",\"r\":\"John 1:1\",\"q\":\"…\",\"a\":\"…\"}]"}
+};
+let wipeArmed=false;
+$("wipeBtn").onclick=()=>{
+  if(!wipeArmed){wipeArmed=true;$("wipeBtn").textContent="Tap again to delete";setTimeout(()=>{wipeArmed=false;$("wipeBtn").textContent="Delete my questions"},4000);return}
+  wipeArmed=false;$("wipeBtn").textContent="Delete my questions";custom=[];savePrefs();refresh();$("jsonMsg").textContent="Deleted.";
+};
+
+/* ---------- jump marks ---------- */
+const JM_BOOK="John";
+const JM_DATA=`13:34|"A new/ command I give
+2:22|After he was/ raised from
+13:5|After that,/ he poured water
+6:14|After the people/ saw the
+20:21|Again Jesus said, "Peace/ be
+18:27|Again Peter/ denied it, and
+6:37|All those/ the Father gives
+19:37|and, as/ another scripture says,
+5:29|and come/ out— those who
+5:27|And he has/ given him
+1:33|And I myself/ did not
+12:32|And I, when/ I am
+14:16|And I will ask/ the
+14:13|And I will do/ whatever
+14:3|And if/ I go and
+11:52|and not/ only for that
+17:5|And now,/ Father, glorify me
+6:39|And this/ is the will
+11:26|and whoever/ lives by believing
+20:22|And with/ that he breathed
+7:17|Anyone who chooses/ to do
+14:24|Anyone who does/ not love
+12:25|Anyone who loves/ their life
+9:4|As long/ as it is
+19:6|As soon as the/ chief
+15:9|"As the/ Father has loved
+17:18|As you/ sent me into
+12:36|Believe in/ the light while
+8:16|But if I do judge,/
+10:38|But if I do them,/
+2:24|But Jesus would/ not entrust
+14:26|But the Advocate,/ the Holy
+11:57|But the chief/ priests and
+20:31|But these/ are written that
+10:5|But they will/ never follow
+16:7|But very/ truly I tell
+16:13|But when he,/ the Spirit
+4:14|but whoever drinks/ the water
+3:21|But whoever lives/ by the
+5:30|By myself/ I can do
+13:35|By this everyone/ will know
+7:39|By this he/ meant the
+19:17|Carrying/ his own cross, he
+1:13|children/ born not of natural
+5:28|"Do not be amazed/ at
+14:1|"Do not let/ your hearts
+6:27|Do not work/ for food
+7:42|Does not/ Scripture say that
+14:10|Don't you believe/ that I
+4:35|Don't you have/ a saying,
+20:1|Early on/ the first day
+4:36|Even now/ the one who
+3:20|Everyone/ who does evil hates
+12:28|Father, glorify/ your name!" Then
+17:24|"Father, I/ want those you
+3:6|Flesh/ gives birth to flesh,
+5:26|For as/ the Father has
+3:17|For God did/ not send
+3:16|For God so/ loved the
+6:38|For I have/ come down
+5:21|For just/ as the Father
+6:40|For my Father's/ will is
+6:33|For the bread/ of God
+1:17|For the law/ was given
+12:43|for they/ loved human praise
+19:12|From then/ on, Pilate tried
+4:24|God/ is spirit, and his
+15:13|Greater/ love has no one
+1:7|He came as/ a witness
+1:11|He came to that/ which
+15:2|He cuts/ off every branch
+2:25|He did not need/ any
+11:51|He did not say this ||
+12:40|"He has/ blinded their eyes
+3:30|He must/ become greater; I
+9:11|He replied, "The/ man they
+9:25|He replied, "Whether/ he is
+1:51|He then/ added, "Very truly
+1:10|He was in/ the world,
+1:2|He was with/ God in
+2:17|His disciples remembered/ that it
+9:22|His parents/ said this because
+5:44|How can you/ believe since
+8:50|I am not seeking/ glory
+8:18|I am one/ who testifies
+6:48|I am the bread/ of
+10:9|I am the gate;/ whoever
+10:14|"I am the good shepherd; ||
+10:11|"I am the good shepherd. ||
+6:51|I am the living/ bread
+15:1|"I am the true/ vine,
+15:5|"I am the vine;/ you
+10:30|I and/ the Father are
+16:28|I came/ from the Father
+10:28|I give/ them eternal life,
+5:43|I have come in/ my
+12:46|I have come into/ the
+17:22|I have given them the/
+10:16|I have other/ sheep that
+17:6|"I have revealed/ you to
+18:20|"I have spoken openly/ to
+5:36|"I have testimony/ weightier than
+16:33|"I have told you these/
+15:11|I have told you this ||
+17:23|I in/ them and you
+12:50|I know that his/ command
+15:15|I no/ longer call you
+8:24|I told/ you that you
+14:18|I will not leave/ you
+17:11|I will remain/ in the
+12:47|"If anyone/ hears my words
+15:18|"If the/ world hates you,
+5:46|If you believed/ Moses, you
+15:19|If you belonged/ to the
+15:6|If you do/ not remain
+20:23|If you forgive/ anyone's sins,
+15:10|If you keep/ my commands,
+14:15|"If you love/ me, keep
+15:7|If you remain/ in me
+21:3|"I'm/ going out to fish,"
+1:4|In him/ was life, and
+16:23|In that day you will ||
+1:1|In the beginning/ was the
+13:1|It was just/ before the
+8:14|Jesus answered, "Even/ if I
+4:13|Jesus answered, "Everyone/ who drinks
+4:10|Jesus answered her,/ "If you
+14:6|Jesus answered, "I am/ the
+13:26|Jesus answered, "It/ is the
+7:16|Jesus answered, "My/ teaching is
+6:29|Jesus answered, "The/ work of
+2:19|Jesus answered them, "Destroy/ this
+13:10|Jesus answered, "Those/ who have
+3:5|Jesus answered, "Very truly I ||
+19:11|Jesus answered, "You/ would have
+18:11|Jesus commanded/ Peter, "Put your
+21:25|Jesus did/ many other things
+5:19|Jesus gave/ them this answer:
+6:15|Jesus, knowing that/ they intended
+14:23|Jesus replied, "Anyone/ who loves
+8:54|Jesus replied, "If/ I glorify
+12:23|Jesus replied, "The/ hour has
+8:34|Jesus replied, "Very truly I ||
+3:3|Jesus replied, "Very truly I ||
+20:17|Jesus said, "Do/ not hold
+9:39|Jesus said, "For/ judgment I
+7:33|Jesus said, "I/ am with
+18:36|Jesus said, "My/ kingdom is
+21:19|Jesus said this to/ indicate
+11:25|Jesus said to her, "I/
+21:12|Jesus said to them, "Come/
+8:42|Jesus said to them, "If/
+6:32|Jesus said to them, "Very ||
+6:53|Jesus said to them, "Very ||
+6:11|Jesus then/ took the loaves,
+16:16|Jesus went/ on to say,
+1:23|John replied/ in the words
+3:14|Just as Moses/ lifted up
+10:15|just as the Father/ knows
+19:38|Later, Joseph/ of Arimathea asked
+19:28|Later, knowing/ that everything had
+12:7|"Leave/ her alone," Jesus replied.
+11:21|"Lord,"/ Martha said to Jesus,
+20:18|Mary/ Magdalene went to the
+18:25|Meanwhile, Simon/ Peter was still
+5:22|Moreover,/ the Father judges no
+15:12|My command/ is this: Love
+10:29|My Father,/ who has given
+14:2|My Father's/ house has many
+4:34|"My food,"/ said Jesus, "is
+17:20|"My prayer is not for/
+17:15|My prayer is not that/
+10:27|My sheep/ listen to my
+9:3|"Neither/ this man nor his
+6:44|"No one can/ come to
+1:18|No one has ever seen/
+10:18|No one takes/ it from
+13:8|"No,"/ said Peter, "you shall
+16:27|No, the/ Father himself loves
+7:23|Now if/ a boy can
+19:31|Now it/ was the day
+12:27|"Now my/ soul is troubled,
+13:14|Now that I,/ your Lord
+17:3|Now this/ is eternal life:
+2:23|Now while/ he was in
+20:19|On the evening/ of that
+7:37|On the last/ and greatest
+1:16|Out/ of his fullness we
+14:27|Peace/ I leave with you;
+1:45|Philip found/ Nathanael and told
+19:19|Pilate had/ a notice prepared
+15:4|Remain/ in me, as I
+15:20|Remember/ what I told you:
+17:17|Sanctify/ them by the truth;
+6:68|Simon Peter answered/ him, "Lord,
+8:36|So if/ the Son sets
+8:28|So Jesus/ said, "When you
+20:2|So she/ came running to
+20:25|So the other/ disciples told
+9:16|Some of/ the Pharisees said,
+7:24|Stop judging/ by mere appearances,
+19:40|Taking/ Jesus' body, the two
+5:23|that all may/ honor the
+17:21|that all of/ them may
+3:15|that everyone/ who believes may
+3:35|The Father/ loves the Son
+19:7|The Jewish leaders/ insisted, "We
+1:29|The next day John saw/
+3:31|The one who comes/ from
+10:17|The reason/ my Father loves
+4:9|The Samaritan/ woman said to
+6:63|The Spirit gives/ life; the
+14:17|the Spirit of/ truth. The
+10:10|The thief/ comes only to
+21:17|The third/ time he said
+1:9|The true/ light that gives
+3:8|The wind/ blows wherever it
+1:14|The Word/ became flesh and
+7:7|The world/ cannot hate you,
+20:27|Then he said/ to Thomas,
+13:38|Then Jesus answered,/ "Will you
+12:44|Then Jesus cried/ out, "Whoever
+6:35|Then Jesus declared, "I am/
+11:40|Then Jesus said, "Did/ I
+20:29|Then Jesus told him,/ "Because
+12:3|Then Mary/ took about a
+1:49|Then Nathanael/ declared, "Rabbi, you
+19:1|Then Pilate/ took Jesus and
+4:53|Then the father/ realized that
+8:32|Then you/ will know the
+12:48|There is a/ judge for
+19:18|There they/ crucified him, and
+1:6|There was/ a man sent
+10:7|Therefore Jesus/ said again, "Very
+11:45|Therefore many/ of the Jews,
+19:36|These/ things happened so that
+20:13|They asked her,/ "Woman, why
+4:42|They said to/ the woman,
+12:13|They took/ palm branches and
+16:2|They will put/ you out
+15:17|This is my/ command: Love
+21:24|This is the disciple/ who
+1:30|This is the one/ I
+3:19|This is the verdict:/ Light
+21:14|This was now/ the third
+1:3|Through/ him all things were
+8:31|To the/ Jews who had
+2:16|To those/ who sold doves
+4:48|"Unless/ you people see signs
+16:24|Until/ now you have not
+5:25|Very truly I tell you, ||
+8:58|"Very truly I tell you," ||
+13:16|Very truly I tell you, ||
+6:47|Very truly I tell you, ||
+12:24|Very truly I tell you, ||
+21:18|Very truly I tell you, ||
+13:20|Very truly I tell you, ||
+14:12|Very truly I tell you, ||
+5:24|"Very truly I tell you, ||
+8:51|Very truly I tell you, ||
+16:20|Very truly I tell you, ||
+10:33|"We are/ not stoning you
+6:69|We have/ come to believe
+9:31|We know that God does/
+2:11|What Jesus/ did here in
+19:30|When he had received/ the
+10:4|When he has/ brought out
+11:4|When he heard/ this, Jesus
+1:36|When he saw/ Jesus passing
+18:6|When Jesus said, "I/ am
+8:12|When Jesus spoke/ again to
+15:26|"When the Advocate/ comes, whom
+21:15|When they had finished/ eating,
+8:7|When they kept/ on questioning
+9:5|While I am/ in the
+3:18|Whoever believes in him/ is
+7:38|Whoever believes in me,/ as
+3:36|Whoever believes in the/ Son
+6:54|Whoever eats my flesh and ||
+14:21|Whoever has my/ commands and
+12:26|Whoever serves/ me must follow
+7:18|Whoever speaks/ on their own
+11:27|"Yes,/ Lord," she replied, "I
+4:23|Yet a/ time is coming
+12:42|Yet at/ the same time
+1:12|Yet to/ all who did
+5:40|yet you/ refuse to come
+18:37|"You are a/ king, then!"
+15:14|You are my/ friends if
+18:17|"You aren't/ one of this
+8:44|You belong/ to your father,
+13:13|"You call/ me 'Teacher' and
+15:16|You did/ not choose me,
+11:50|You do not realize/ that
+14:28|"You heard/ me say, 'I
+8:15|You judge/ by human standards;
+14:14|You may/ ask me for
+4:22|You Samaritans/ worship what you
+5:39|You study/ the Scriptures diligently
+12:8|You will always/ have the`;
+const JM_ALL=JM_DATA.trim().split("\n").map(l=>{
+  const p=l.indexOf("|"),ref=l.slice(0,p).split(":"),ph=l.slice(p+1).trim();
+  let shared=false,k=null;const ws=[];
+  ph.split(/\s+/).forEach(w=>{
+    if(w==="||"){shared=true;return}
+    if(/\/$/.test(w)){ws.push(w.slice(0,-1));k=ws.length}else ws.push(w);
+  });
+  return{b:JM_BOOK,c:+ref[0],v:+ref[1],words:ws,k:k===null?ws.length:k,shared};
+});
+const cmpN=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9']/g,"");
+let JM={pool:[],e:null,N:0,L:0,k:0,kind:"",phase:"idle",iv:null,tOut:null,fT:null,fLeft:30,expect:"",last:[],st:{n:0,mark:0,early:0,fin:0}};
+function jmPool(){
+  const have=new Map();V.forEach(x=>have.set(x.b+"|"+x.c+"|"+x.v,x));
+  const out=[];
+  JM_ALL.forEach(e=>{
+    const x=have.get(e.b+"|"+e.c+"|"+e.v);if(!x)return;
+    const vw=words(x.t);
+    out.push(Object.assign({},e,{vw,mism:e.words.some((w,i)=>cmpN(w)!==cmpN(vw[i]||""))}));
+  });
+  return out;
+}
+function rangeText(nums){
+  const a=[...new Set(nums)].sort((x,y)=>x-y),r=[];let s=a[0],p=a[0];
+  for(let i=1;i<=a.length;i++){if(a[i]!==p+1){r.push(s===p?""+s:s+"–"+p);s=a[i]}p=a[i]}
+  return r.join(", ");
+}
+function jmRefresh(){
+  JM.pool=jmPool();
+  const p=JM.pool,rep=p.filter(e=>e.shared).length;
+  $("jmInfo").textContent=p.length?"Using "+JM_BOOK+" chapter"+(new Set(p.map(e=>e.c)).size>1?"s ":" ")+rangeText(p.map(e=>e.c))+" from your source text: "+(p.length-rep)+" jump marks ready"+(rep?" (plus "+rep+" repeated starts ‖ you can switch on)":"")+". Add more chapters under Source Text and their jump marks appear here automatically.":"No jump marks match your source text yet. The jump mark list covers "+JM_BOOK+", so add "+JM_BOOK+" under Source Text (use the label “"+JM_BOOK+"”).";
+  jmSetBig();
+  const mm=p.filter(e=>e.mism).length;
+  $("jmStats").textContent="Rounds "+JM.st.n+" · On the mark "+JM.st.mark+" · Too early "+JM.st.early+" · Verses finished "+JM.st.fin;
+  jmList();
+  $("jmCheck").textContent=mm?mm+" jump mark"+(mm>1?"s":"")+" start with different words in your source text than in the printed list (marked “check” below). That is usually a typo or a different wording in the pasted text.":"";
+}
+function jmList(){
+  const q=($("jmFilter").value||"").toLowerCase().trim(),L=$("jmList");L.innerHTML="";
+  const rows=JM.pool.filter(e=>!q||(e.words.join(" ")+" "+JM_BOOK+" "+e.c+":"+e.v).toLowerCase().includes(q));
+  if(!rows.length){const d=document.createElement("p");d.className="hint";d.textContent=JM.pool.length?"Nothing matches that search.":"Nothing to show yet.";L.appendChild(d);return}
+  rows.slice().sort((a,b)=>a.c-b.c||a.v-b.v).forEach(e=>{
+    const d=document.createElement("div");d.className="book";
+    const l=document.createElement("div");l.style.flex="1";l.style.minWidth="200px";
+    const t=document.createElement("b");t.textContent=e.words.slice(0,e.k).join(" ");
+    const m=document.createElement("span");m.className="mk";m.textContent=e.shared?"‖":"/";
+    const r=document.createElement("span");r.textContent=e.words.slice(e.k).join(" ");
+    l.appendChild(t);l.appendChild(m);l.appendChild(r);
+    const h=document.createElement("div");h.className="hint";h.style.margin="2px 0 0";
+    h.textContent=JM_BOOK+" "+e.c+":"+e.v+(e.shared?" · repeated start":"")+(e.mism?" · check: your text starts differently":"");
+    l.appendChild(h);d.appendChild(l);L.appendChild(d);
+  });
+}
+function jmMsg(t){$("jmStatus").textContent=t}
+function jmSetBig(){
+  const b=$("jmBig"),ph=JM.phase;if(!b)return;
+  if(ph==="idle"){b.textContent="START";b.disabled=!JM.pool.length}
+  else if(ph==="ready"){b.textContent="READY…";b.disabled=true}
+  else if(ph==="reading"||ph==="read"){b.textContent="JUMP!";b.disabled=false}
+  else if(ph==="jumped"){b.textContent="JUMP!";b.disabled=true}
+  else{b.textContent="NEXT";b.disabled=false}
+}
+function jmStop(){
+  ttsStop();clearInterval(JM.iv);JM.iv=null;clearTimeout(JM.tOut);clearInterval(JM.fT);JM.fT=null;
+  JM.phase="idle";
+  if($("jmFinish")){$("jmFinish").classList.add("hidden");$("jmResult").classList.add("hidden");$("jmWords").innerHTML="";$("jmHelp").classList.remove("hidden");jmMsg("")}
+  jmSetBig();
+}
+function jmBigClick(){
+  if(JM.phase==="idle"||JM.phase==="done")jmNew();
+  else if(JM.phase==="reading"||JM.phase==="read")jmJump(false);
+}
+function jmNew(){
+  ttsStop();clearInterval(JM.iv);JM.iv=null;clearTimeout(JM.tOut);clearInterval(JM.fT);JM.fT=null;
+  const pool=JM.pool.filter(e=>JM.shared||!e.shared);
+  if(!pool.length){JM.phase="idle";jmSetBig();jmMsg("No jump marks to practice yet.");return}
+  let e,t=0;do{e=pick(pool);t++}while(t<30&&JM.last.includes(e.c+":"+e.v)&&pool.length>JM.last.length);
+  JM.last.push(e.c+":"+e.v);if(JM.last.length>10)JM.last.shift();
+  JM.spoken=ttsOn();if(JM.spoken)ttsUnlock();
+  JM.e=e;JM.k=e.k;JM.L=Math.min(Math.max(e.words.length,5),e.vw.length);JM.N=0;JM.kind="";JM.phase="ready";
+  $("jmHelp").classList.add("hidden");$("jmWords").innerHTML="";$("jmResult").classList.add("hidden");$("jmFinish").classList.add("hidden");
+  jmSetBig();jmMsg("Get ready…");
+  const per=1000/(+$("jmSpeed").value||3);
+  JM.tOut=setTimeout(()=>{if(JM.spoken){jmReadSpoken();return}JM.phase="reading";jmSetBig();jmMsg("Press JUMP at the jump mark");JM.iv=setInterval(jmTick,per)},900);
+}
+function jmReadSpoken(){
+  JM.phase="reading";jmSetBig();jmMsg("Listening… press JUMP at the jump mark");
+  const sp=+$("jmSpeed").value||3,rate={2:0.85,3:1,4:1.3}[sp]||1,gap={2:420,3:260,4:140}[sp]||260;
+  const step=()=>{
+    if(JM.phase!=="reading")return;
+    if(JM.N>=JM.L){JM.phase="read";jmSetBig();jmMsg("Read through. You have 5 seconds.");JM.tOut=setTimeout(()=>{if(JM.phase==="read")jmJump(true)},5000);return}
+    const idx=JM.N;let started=false;
+    ttsSay(JM.e.vw[idx],{rate,
+      onstart:()=>{if(JM.phase==="reading"&&!started){started=true;JM.N=idx+1}},
+      onfail:()=>{JM.spoken=false},
+      onend:()=>{if(JM.phase!=="reading")return;if(!started){started=true;JM.N=idx+1}
+        if(!JM.spoken){const s=document.createElement("span");s.className="jw";s.textContent=JM.e.vw[idx];$("jmWords").appendChild(s)}
+        JM.tOut=setTimeout(step,gap)}});
+  };
+  step();
+}
+function jmTick(){
+  if(JM.N>=JM.L){
+    clearInterval(JM.iv);JM.iv=null;JM.phase="read";jmSetBig();jmMsg("Read through. You have 5 seconds.");
+    JM.tOut=setTimeout(()=>{if(JM.phase==="read")jmJump(true)},5000);return;
+  }
+  const s=document.createElement("span");s.className="jw";s.textContent=JM.e.vw[JM.N];$("jmWords").appendChild(s);JM.N++;
+}
+function jmJump(timeout){
+  if(JM.phase!=="reading"&&JM.phase!=="read")return;
+  ttsStop();clearInterval(JM.iv);JM.iv=null;clearTimeout(JM.tOut);
+  const N=JM.N,k=JM.k,e=JM.e;
+  JM.st.n++;
+  if(timeout){JM.kind="none";JM.jumpMsg="You didn’t jump in time. The jump mark was after word "+k+"."}
+  else if(N<k){JM.kind="early";JM.st.early++;JM.jumpMsg="Too early! You jumped after "+N+" word"+(N===1?"":"s")+". The jump mark is after word "+k+"."}
+  else if(N<=k+1){JM.kind="mark";JM.st.mark++;JM.jumpMsg="On the mark! The jump mark is after word "+k+"."}
+  else{JM.kind="slow";JM.jumpMsg="Safe, but you could jump sooner. The jump mark is after word "+k+"."}
+  jmMsg(JM.kind==="early"?"Too early":JM.kind==="mark"?"On the mark!":JM.kind==="slow"?"Safe jump":"No jump");
+  jmRefreshStats();
+  if(timeout){JM.expect=e.vw.join(" ");jmEnd(null,"timeout");return}
+  JM.expect=e.vw.slice(N).join(" ");
+  if(!JM.expect){jmEnd(null,"none");return}
+  JM.phase="jumped";jmSetBig();
+  $("jmFinish").classList.remove("hidden");
+  $("jmFinNote").textContent=N?(JM.spoken?"The quizmaster read "+N+" word"+(N===1?"":"s")+". Finish the verse from the next word, through the end of the verse.":"The quizmaster read: “"+e.vw.slice(0,N).join(" ")+"”. Finish the verse from the next word, through the end of the verse."):"Say the whole verse.";
+  $("jmAns").value="";$("jmSubmit").disabled=false;$("jmSkip").disabled=false;
+  JM.fLeft=30;$("jmTimer").textContent="30";
+  JM.fT=setInterval(()=>{JM.fLeft--;$("jmTimer").textContent=Math.max(JM.fLeft,0);if(JM.fLeft<=0){clearInterval(JM.fT);JM.fT=null;jmSubmit()}},1000);
+}
+function jmRefreshStats(){$("jmStats").textContent="Rounds "+JM.st.n+" · On the mark "+JM.st.mark+" · Too early "+JM.st.early+" · Verses finished "+JM.st.fin}
+function jmSubmit(){
+  if(JM.phase!=="jumped")return;
+  clearInterval(JM.fT);JM.fT=null;
+  const given=$("jmAns").value,r=judge(given,{t:"FTV",a:JM.expect});
+  if(r.ok)JM.st.fin++;
+  jmEnd(r,"submit",given);
+}
+function jmSkip(){
+  if(JM.phase!=="jumped")return;
+  clearInterval(JM.fT);JM.fT=null;
+  jmEnd(null,"skip");
+}
+function jmEnd(r,how,given){
+  JM.phase="done";
+  $("jmFinish").classList.add("hidden");
+  const e=JM.e,box=$("jmResult");box.innerHTML="";box.classList.remove("hidden");
+  const add=(tag,text,cls)=>{const d=document.createElement(tag);if(cls)d.className=cls;d.textContent=text;box.appendChild(d);return d};
+  add("b",how==="submit"?r.msg:how==="skip"?"Skipped. That counts as a miss.":how==="timeout"?"You didn’t jump in time. That counts as a miss.":"Verse finished.");
+  if(how==="submit"&&given&&given.trim())add("div","You said: “"+given.trim()+"”","hint").style.margin="4px 0 0";
+  add("div",JM.jumpMsg).style.margin="8px 0 0";
+  const ph=document.createElement("div");ph.style.margin="6px 0";
+  const shown=e.vw.slice(0,Math.max(JM.L,e.k));
+  const a=document.createElement("span");a.textContent=shown.slice(0,e.k).join(" ");
+  const m=document.createElement("span");m.className="mk";m.textContent=e.shared?"‖":"/";
+  const c=document.createElement("span");c.textContent=shown.slice(e.k).join(" ");
+  ph.appendChild(a);ph.appendChild(m);ph.appendChild(c);box.appendChild(ph);
+  const ans=add("div","The answer: "+JM.expect);ans.style.margin="8px 0 0";ans.style.fontWeight="700";
+  add("div","Full verse: "+e.vw.join(" "),"hint");
+  add("div",JM_BOOK+" "+e.c+":"+e.v+(e.shared?" · several verses start this way":"")+(e.mism?" · check: your source text starts a little differently than the printed list":""),"hint");
+  jmRefreshStats();jmSetBig();
+  if(how==="submit")fx(r.ok&&JM.kind!=="early"?"good":"bad");
+  else fx("bad");
+}
+$("jmBig").onclick=jmBigClick;
+$("jmSubmit").onclick=jmSubmit;
+$("jmSkip").onclick=jmSkip;
+$("jmShared").onchange=()=>{JM.shared=$("jmShared").checked};
+$("jmReset").onclick=()=>{JM.st={n:0,mark:0,early:0,fin:0};jmRefreshStats()};
+$("jmFilter").oninput=jmList;
+$("jmAns").onkeydown=e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();jmSubmit()}};
+document.addEventListener("keydown",e=>{
+  if(e.code!=="Space")return;
+  const vj=$("v-jump");if(!vj||!vj.classList.contains("on"))return;
+  const tg=document.activeElement&&document.activeElement.tagName;if(/TEXTAREA|INPUT|SELECT/.test(tg))return;
+  if(JM.phase==="reading"||JM.phase==="read"){e.preventDefault();jmJump(false)}
+});
+
+/* ---------- start up ---------- */
+if(window.BQ){
+  window.BQ.onView=v=>{
+    if(v==="home")homeInfo();
+    if(v==="source")adminUI();
+    if(v==="jump")jmRefresh();
+    if(v!=="jump")jmStop();
+    if(v!=="practice")ttsStop();
+    if(v!=="practice"&&tInt){clearInterval(tInt);tInt=null;$("timerBtn").textContent="Resume"}
+  };
+}
+upgradeSrc();
+srcInput();adminUI();applySrc();stats();
+if(window.BQ)window.BQ.route(null,true);
+function adoptPrefs(p,fromDb){
+  try{
+    custom=(fromDb?JSON.parse(p.custom||"[]"):(p.custom||[])).filter(q=>q&&q.t&&q.q&&q.a);
+    style=p.style==="epistle"?"epistle":"narrative";
+    PREFS={custom,style,saved:p.saved};store.set("bq3_prefs",PREFS);$("styleSel").value=style;refresh();
+  }catch(e){}
+}
+(async()=>{
+  // 1) the backup copy in this browser (covers the browser clearing its normal storage)
+  try{
+    const ib=await idb.get("bq3_src");
+    if(ib&&stampOf(ib)>SRC_TS)adoptSrc(ib);
+    else if(!ib||stampOf(ib)<SRC_TS)idb.set("bq3_src",SRC||{removed:true,label:"",raw:"",saved:SRC_TS});
+    const ip=await idb.get("bq3_prefs");
+    if(ip&&(ip.saved||0)>(PREFS.saved||0))adoptPrefs(ip,false);else idb.set("bq3_prefs",PREFS);
+  }catch(e){}
+  // 2) the account copy and the team copy (only once the viewer has allowed it)
+  await ensureDb(false);
+  if(!DB||!DB_OK){checkLayers();return}
+  try{
+    const r=await dbLoadSrc();
+    if(r&&stampOf(r)>SRC_TS)adoptSrc(r);
+    else if(IS_ADMIN&&(!r||SRC_TS>stampOf(r)))dbSaveSrc(SRC||{removed:true,label:"",raw:"",saved:SRC_TS});
+    const t=await teamLoad();
+    if(t&&stampOf(t)>SRC_TS)adoptSrc(t);
+    else if(IS_ADMIN&&(!t||SRC_TS>stampOf(t)))teamSave(SRC||{removed:true,label:"",raw:"",saved:SRC_TS});
+    const p=await dbGet("bq_prefs");
+    if(p&&(p.saved||0)>(PREFS.saved||0))adoptPrefs(p,true);
+    else if(!p||(PREFS.saved||0)>(p.saved||0))dbPut("bq_prefs",{custom:JSON.stringify(custom),style,saved:PREFS.saved||Date.now()});
+  }catch(e){}
+  checkLayers();
+})();
+
+</script>
+</body>
+</html>
